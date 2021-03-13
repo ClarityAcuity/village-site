@@ -2,7 +2,7 @@ import vec3, { unitVector, dot, cross } from "./vec3"
 import sphere from "./sphere"
 import hitableList from "./hitable-list"
 import camara from "./camera"
-import { lambertian, metal } from "./material"
+import { lambertian, metal, dielectric } from "./material"
 
 export function setRectangle(x, y, width, height) {
   const x1 = x
@@ -61,15 +61,16 @@ function color(r, world, depth) {
 
 export function getImage(width, height, ns = 100) {
   const image = []
-  const list1 = sphere(vec3(0, 0, -1), 0.5, lambertian(vec3(0.8, 0.3, 0.3)))
+  const list1 = sphere(vec3(0, 0, -1), 0.5, lambertian(vec3(0.1, 0.2, 0.5)))
   const list2 = sphere(
     vec3(0, -100.5, -1),
     100,
     lambertian(vec3(0.8, 0.8, 0.0))
   )
   const list3 = sphere(vec3(1, 0, -1), 0.5, metal(vec3(0.8, 0.6, 0.2), 1.0))
-  const list4 = sphere(vec3(-1, 0, -1), 0.5, metal(vec3(0.8, 0.8, 0.8), 0.3))
-  const hitable = [list1, list2, list3, list4]
+  const list4 = sphere(vec3(-1, 0, -1), 0.5, dielectric(1.5))
+  const list5 = sphere(vec3(-1, 0, -1), -0.45, dielectric(1.5))
+  const hitable = [list1, list2, list3, list4, list5]
   const world = hitableList(hitable, hitable.length)
   const eye = camara()
   for (let j = height - 1; j >= 0; j--) {
