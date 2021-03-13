@@ -129,7 +129,24 @@ export function unitVector(v) {
 }
 
 export function reflect(v, n) {
-  return v.subtractVector(n.multiplyScalar(2*dot(v, n)))
+  return v.subtractVector(n.multiplyScalar(2 * dot(v, n)))
+}
+
+export function refract(v, n, niOverNt) {
+  const uv = unitVector(v)
+  const dt = dot(uv, n)
+  const discriminant = 1.0 - niOverNt * niOverNt * (1 - dt * dt)
+  let refracted
+  if (discriminant > 0) {
+    refracted = uv
+      .subtractVector(n.multiplyScalar(dt))
+      .multiplyScalar(niOverNt)
+      .subtractVector(n.multiplyScalar(Math.sqrt(discriminant)))
+  }
+  return {
+    isRefracted: discriminant > 0,
+    refracted,
+  }
 }
 
 export default function(x, y, z) {
