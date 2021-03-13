@@ -47,7 +47,7 @@ class Metal extends Material {
 class Dielectric extends Material {
   constructor(ri) {
     super()
-    this.refIdx = ri
+    this.refIndex = ri
   }
   scatter(rayIn, hitRecord) {
     const { p, normal } = hitRecord
@@ -56,12 +56,18 @@ class Dielectric extends Material {
     let niOverNt
     const attenuation = vec3(1.0, 1.0, 1.0)
     let scattered
+    let reflectProb
+    let cosine
     if (dot(rayIn.direction(), normal) > 0) {
       outwardNormal = normal.opposite()
-      niOverNt = this.refIdx
+      niOverNt = this.refIndex
+      cosine =
+        (this.refIndex * dot(rayIn.direction(), normal)) /
+        rayIn.direction().length()
     } else {
       outwardNormal = normal
-      niOverNt = 1.0 / this.refIdx
+      niOverNt = 1.0 / this.refIndex
+      cosine = -dot(rayIn.direction(), normal) / rayIn.direction().length()
     }
     const { isRefracted, refracted } = refract(
       rayIn.direction(),
@@ -69,9 +75,15 @@ class Dielectric extends Material {
       niOverNt
     )
     if (isRefracted) {
-      scattered = ray(p, refracted)
+      reflectProb = schlick(cosine, this.refIndex)
     } else {
       scattered = ray(p, reflected)
+      reflectProb = 1.0
+    }
+    if (Math.random() < reflectProb) {
+      scattered = ray(p, reflected)
+    } else {
+      scattered = ray(p, refracted)
     }
     return {
       isScatter: isRefracted,
@@ -79,6 +91,12 @@ class Dielectric extends Material {
       attenuation,
     }
   }
+}
+
+function schlick(cosine, refIndex) {
+  let r0 = (1 - refIndex) / (1 + refIndex)
+  r0 = r0 * r0
+  return r0 + (1 - r0) * Math.pow(1 - cosine, 5)
 }
 
 export const lambertian = a => new Lambertian(a)
