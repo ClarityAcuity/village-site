@@ -86,7 +86,7 @@ class Dielectric extends Material {
       scattered = ray(p, refracted)
     }
     return {
-      isScatter: isRefracted,
+      isScatter: true,
       scattered,
       attenuation,
     }
