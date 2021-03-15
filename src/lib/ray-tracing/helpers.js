@@ -72,13 +72,19 @@ export function getImage(width, height, ns = 100) {
   const list5 = sphere(vec3(-1, 0, -1), -0.45, dielectric(1.5))
   const hitable = [list1, list2, list3, list4, list5]
   const world = hitableList(hitable, hitable.length)
-  const eye = camara(
-    vec3(-2, 2, 1),
-    vec3(0, 0, -1),
-    vec3(0, 1, 0),
-    20,
-    width / height
-  )
+  const lookFrom = vec3(3, 3, 2)
+  const lookAt = vec3(0, 0, -1)
+  const focusDist = lookFrom.subtractVector(lookAt).length()
+  const aperture = 1.0
+  const eye = camara({
+    lookFrom,
+    lookAt,
+    vUp: vec3(0, 1, 0),
+    vFov: 20,
+    aspect: width / height,
+    aperture,
+    focusDist
+  })
   for (let j = height - 1; j >= 0; j--) {
     for (let i = 0; i < width; i++) {
       let col = vec3(0, 0, 0)
