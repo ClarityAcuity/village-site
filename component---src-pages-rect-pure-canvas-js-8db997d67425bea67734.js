@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[31],{rGnB:function(n,t,e){"use strict";e.r(t);var r=e("dI71"),o=e("q1tI"),u=e.n(o),a=function(n){function t(){return n.apply(this,arguments)||this}Object(r.a)(t,n);var e=t.prototype;return e.shouldComponentUpdate=function(){return!1},e.render=function(){var n=this;return u.a.createElement("canvas",{width:"300",height:"300",ref:function(t){return t?n.props.contextRef(t.getContext("2d")):null}})},t}(u.a.Component);t.default=a}}]);
+//# sourceMappingURL=component---src-pages-rect-pure-canvas-js-8db997d67425bea67734.js.map
