@@ -1,22 +1,17 @@
-import React from "react"
+import React, { memo } from "react"
 
-class PureCanvas extends React.Component {
-  shouldComponentUpdate() {
-    return false
-  }
-
-  render() {
-    const { width, height } = this.props
-    return (
-      <canvas
-        width={width}
-        height={height}
-        ref={node => {
-          return node ? this.props.contextRef(node.getContext("webgl")) : null
-        }}
-      />
-    )
-  }
+function PureCanvas({ width, height, contextRef }) {
+  return (
+    <canvas
+      width={width}
+      height={height}
+      ref={node => (node ? contextRef(node.getContext("webgl")) : null)}
+    />
+  )
 }
 
-export default PureCanvas
+function areEqual() {
+  return false
+}
+
+export default memo(PureCanvas, areEqual)

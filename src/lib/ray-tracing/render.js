@@ -19,7 +19,7 @@ const texPositions = [
   1.0,
 ]
 
-function initBuffers(gl) {
+function initBuffers(gl, image) {
   const { width, height } = gl.canvas
   const positions = setRectangle(0, 0, width, height)
 
@@ -30,7 +30,6 @@ function initBuffers(gl) {
   const texCoordBuffer = gl.createBuffer()
   gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer)
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(texPositions), gl.STATIC_DRAW)
-  const image = new Uint8Array(getImage(width, height))
   const tex = gl.createTexture()
   gl.bindTexture(gl.TEXTURE_2D, tex)
   gl.texImage2D(
@@ -42,7 +41,7 @@ function initBuffers(gl) {
     0, // border
     gl.RGBA, // format
     gl.UNSIGNED_BYTE, // type
-    image // data
+    new Uint8Array(image) // data
   )
 
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
@@ -118,7 +117,7 @@ function drawScene(gl, programInfo, buffers) {
   }
 }
 
-export default function render(gl) {
+export default function render(gl, image) {
   if (!gl) {
     alert(
       "Unable to initialize WebGL. Your browser or machine may not support it."
@@ -141,7 +140,7 @@ export default function render(gl) {
     },
   }
 
-  const buffers = initBuffers(gl)
+  const buffers = initBuffers(gl, image)
 
   drawScene(gl, programInfo, buffers)
 }
