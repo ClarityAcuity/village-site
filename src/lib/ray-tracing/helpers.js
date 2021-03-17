@@ -105,5 +105,58 @@ export function getImage(width, height, ns = 100) {
       image.push(255)
     }
   }
-  return image
+
+function randomScene() {
+  const list = []
+  list.push(sphere(vec3(0, -1000, 0), 1000, lambertian(vec3(0.5, 0.5, 0.5))))
+  let i = 1
+  for (let a = -9; a < 9; a += 3) {
+    for (let b = -9; b < 9; b += 3) {
+      const chooseMat = Math.random()
+      const center = vec3(a + 2 * Math.random(), 0.3, b + 2 * Math.random())
+      if (center.subtractVector(vec3(4, 0.2, 0)).length() > 0.9) {
+        if (chooseMat < 0.8) {
+          // diffuse
+          list.push(
+            sphere(
+              center,
+              0.3,
+              lambertian(
+                vec3(
+                  Math.random() * Math.random(),
+                  Math.random() * Math.random(),
+                  Math.random() * Math.random()
+                )
+              )
+            )
+          )
+        } else if (chooseMat < 0.95) {
+          // metal
+          list.push(
+            sphere(
+              center,
+              0.3,
+              metal(
+                vec3(
+                  0.5 * (1 + Math.random()),
+                  0.5 * (1 + Math.random()),
+                  0.5 * (1 + Math.random())
+                ),
+                0.5 * Math.random()
+              )
+            )
+          )
+        } else {
+          // glass
+          list.push(sphere(center, 0.3, dielectric(1.5)))
+        }
+      }
+    }
+  }
+
+  list.push(sphere(vec3(0, 1, 0), 1.0, dielectric(1.5)))
+  list.push(sphere(vec3(-4, 1, 0), 1.0, lambertian(vec3(0.4, 0.2, 0.1))))
+  list.push(sphere(vec3(4, 1, 0), 1.0, metal(vec3(0.7, 0.6, 0.5), 0.0)))
+
+  return hitableList(list, list.length)
 }
