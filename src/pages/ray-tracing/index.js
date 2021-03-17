@@ -1,12 +1,13 @@
-import React, { Fragment } from "react"
+import React from "react"
 import Animation from "./animation"
+import Layout from "../../components/layout"
 
 const RayTracingPage = () => {
   return (
-    <Fragment>
-      <div>RayTracing Page</div>
+    <Layout>
+      <div>Ray Tracing in a Weekend</div>
       <Animation />
-    </Fragment>
+    </Layout>
   )
 }
 

@@ -59,23 +59,29 @@ function color(r, world, depth) {
   }
 }
 
-export function getImage(width, height, ns = 100) {
-  const image = []
-  const list1 = sphere(vec3(0, 0, -1), 0.5, lambertian(vec3(0.1, 0.2, 0.5)))
-  const list2 = sphere(
-    vec3(0, -100.5, -1),
-    100,
-    lambertian(vec3(0.8, 0.8, 0.0))
-  )
-  const list3 = sphere(vec3(1, 0, -1), 0.5, metal(vec3(0.8, 0.6, 0.2), 1.0))
-  const list4 = sphere(vec3(-1, 0, -1), 0.5, dielectric(1.5))
-  const list5 = sphere(vec3(-1, 0, -1), -0.45, dielectric(1.5))
-  const hitable = [list1, list2, list3, list4, list5]
-  const world = hitableList(hitable, hitable.length)
-  const lookFrom = vec3(3, 3, 2)
-  const lookAt = vec3(0, 0, -1)
+export function initImage(width, height) {
+  const scene = randomScene()
+  let image = []
+  let colorMap = []
+  for (let j = height - 1; j >= 0; j--) {
+    let arr = []
+    for (let i = 0; i < width; i++) {
+      image.push(-1)
+      image.push(-1)
+      image.push(-1)
+      image.push(255)
+      arr.push(vec3(0, 0, 0))
+    }
+    colorMap.push(arr)
+  }
+  return { image, colorMap, scene }
+}
+
+export function* getImage({ scene, width, height, colorMap, iteration }) {
+  const lookFrom = vec3(12, 2, 4)
+  const lookAt = vec3(0, 0, 0)
   const focusDist = lookFrom.subtractVector(lookAt).length()
-  const aperture = 1.0
+  const aperture = 0.1
   const eye = camara({
     lookFrom,
     lookAt,
@@ -83,28 +89,33 @@ export function getImage(width, height, ns = 100) {
     vFov: 20,
     aspect: width / height,
     aperture,
-    focusDist
+    focusDist,
   })
-  for (let j = height - 1; j >= 0; j--) {
-    for (let i = 0; i < width; i++) {
-      let col = vec3(0, 0, 0)
-      for (let s = 0; s < ns; s++) {
+  function next() {
+    const image = []
+    for (let j = height - 1; j >= 0; j--) {
+      for (let i = 0; i < width; i++) {
         const u = (i + Math.random()) / width
         const v = (j + Math.random()) / height
         const r = eye.getRay(u, v)
-        // const p = r.pointAtParameter(2.0)
-        col = col.addVector(color(r, world, 0))
+        colorMap[j][i] = colorMap[j][i]
+          .identical()
+          .addVector(color(r, scene, 0))
+        const avgCol = colorMap[j][i].divideScaler(iteration)
+        const ir = 255.99 * Math.sqrt(avgCol.e[0])
+        const ig = 255.99 * Math.sqrt(avgCol.e[1])
+        const ib = 255.99 * Math.sqrt(avgCol.e[2])
+        image.push(ir)
+        image.push(ig)
+        image.push(ib)
+        image.push(255)
       }
-      col = col.divideScaler(ns)
-      const ir = 255.99 * Math.sqrt(col.e[0])
-      const ig = 255.99 * Math.sqrt(col.e[1])
-      const ib = 255.99 * Math.sqrt(col.e[2])
-      image.push(ir)
-      image.push(ig)
-      image.push(ib)
-      image.push(255)
     }
+    return { image, colorMap }
   }
+
+  yield next()
+}
 
 function randomScene() {
   const list = []
