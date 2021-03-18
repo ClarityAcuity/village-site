@@ -1,6 +1,6 @@
 export const SizeEnums = {
   SMALL: "sm",
-  BAIMIDDLE: "md",
+  MIDDLE: "md",
   LARGE: "lg",
   EXTRALARGE: "xl",
   XXL: "xxl",
