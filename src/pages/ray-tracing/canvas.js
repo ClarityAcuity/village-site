@@ -9,7 +9,7 @@ function Canvas({ width, height, image }) {
     if (glRef.current) {
       render(glRef.current, image)
     }
-  }, [glRef.current, image])
+  }, [image])
 
   function _saveContext(gl) {
     glRef.current = gl

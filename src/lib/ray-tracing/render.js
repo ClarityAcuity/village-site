@@ -1,8 +1,7 @@
 import vShaderSource from "./shaders/vertex.vert"
 import fShaderSource from "./shaders/fragment.frag"
-import { setRectangle, getImage } from "./helpers"
-import { compileShader, initShaderProgram } from "./gl-helpers"
-import { mat3 } from "gl-matrix"
+import { setRectangle } from "./helpers"
+import { initShaderProgram } from "./gl-helpers"
 
 const texPositions = [
   0.0,
@@ -124,7 +123,7 @@ export default function render(gl, image) {
     )
     return
   }
-  const program = gl.createProgram()
+  gl.createProgram()
   const shaderProgram = initShaderProgram(gl, vShaderSource, fShaderSource)
   const programInfo = {
     program: shaderProgram,

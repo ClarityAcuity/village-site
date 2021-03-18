@@ -7,7 +7,6 @@ const hitRecord = {
 };
 */
 class Hitable {
-  constructor() {}
   hit(ray, tMin, tMax, hitRecord) {}
 }
 
