@@ -11,11 +11,11 @@ function Canvas({ width, height, image }) {
     }
   }, [glRef.current, image])
 
-  function saveContext(gl) {
+  function _saveContext(gl) {
     glRef.current = gl
   }
 
-  return <PureCanvas contextRef={saveContext} width={width} height={height} />
+  return <PureCanvas contextRef={_saveContext} width={width} height={height} />
 }
 
 export default Canvas
