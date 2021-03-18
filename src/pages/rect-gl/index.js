@@ -1,12 +1,17 @@
-import React, { Fragment } from "react"
+import React from "react"
+import { Heading } from "@chakra-ui/react"
 import Animation from "./animation"
+import Layout from "../../components/layout"
+import { SizeEnums } from "../../lib/style-utils"
 
 const RectGLPage = () => {
   return (
-    <Fragment>
-      <div>Rect GL Page</div>
+    <Layout>
+      <Heading as="h4" size={SizeEnums.MIDDLE} isTruncated>
+        3D Rotating Rectangle by WebGL
+      </Heading>
       <Animation />
-    </Fragment>
+    </Layout>
   )
 }
 
