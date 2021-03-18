@@ -1,8 +1,6 @@
-import React, { useState } from "react"
+import React from "react"
 import { MDXProvider } from "@mdx-js/react"
-import { Link as GatsbyLink } from "gatsby"
-import { Box, List, ListItem, Link, Image, Code } from "@chakra-ui/react"
-import { jsx, css } from "@emotion/react"
+import { Box, List, ListItem, Link, Image } from "@chakra-ui/react"
 import CustomHeading from "./custom-heading"
 import CodeBlock from "./code-block"
 
