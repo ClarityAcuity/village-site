@@ -2,8 +2,6 @@ import React from "react"
 import { d3 } from "../../lib/geo/utils"
 import { outline, graticule } from "../../lib/geo/utils"
 
-const lol = d3.geoGraticule10()
-
 class Canvas extends React.Component {
   constructor() {
     super()

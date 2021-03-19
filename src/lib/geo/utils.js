@@ -1,13 +1,9 @@
 import * as d3js from "d3"
 import * as d3geo from "d3-geo"
 import * as geoprojection from "d3-geo-projection"
-import { Library } from "@observablehq/stdlib"
 import * as topojson from "topojson"
 import land50m from "../../pages/geo/land-50m.json"
 import land110m from "../../pages/geo/land-110m.json"
-
-const observer = new Library()
-const { DOM, Generators } = observer
 
 export const d3 = Object.assign({}, d3js, d3geo, geoprojection)
 

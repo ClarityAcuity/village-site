@@ -1,14 +1,13 @@
 import React, { Component } from "react"
-import Slider from "../../components/slider"
+import Layout from "../../components/layout"
 import Canvas from "./canvas"
 import Camera from "./camera"
-import { projection, outline, graticule, land110, land50 } from "../../lib/geo/utils"
+import { projection, outline, graticule, land110 } from "../../lib/geo/utils"
 
 class GeoPage extends Component {
   constructor() {
     super()
     this.state = {
-      projection: projection,
       lambda: 0,
       phi: 0,
       gamma: 0,
@@ -21,7 +20,6 @@ class GeoPage extends Component {
     this._update = this._update.bind(this)
   }
   _handleChangeCamara(name, value) {
-    console.log(name, value)
     this.setState({
       [name]: value,
     })
@@ -33,16 +31,7 @@ class GeoPage extends Component {
     })
   }
   render() {
-    const {
-      projection,
-      lambda,
-      phi,
-      gamma,
-      rotate,
-      distance,
-      tilt,
-      scale,
-    } = this.state
+    const { lambda, phi, gamma, rotate, distance, tilt, scale } = this.state
     const { _handleChangeCamara } = this
     const width = 954
     const height = width
@@ -52,11 +41,11 @@ class GeoPage extends Component {
       distance,
     }
     return (
-      <div>
+      <Layout>
         <Camera
           lambda={lambda}
           phi={phi}
-          gamma={phi}
+          gamma={gamma}
           width={width}
           distance={distance}
           tilt={tilt}
@@ -71,19 +60,17 @@ class GeoPage extends Component {
           graticule={graticule}
           land={land110}
         />
-      </div>
+      </Layout>
     )
   }
-  componentDidUpdate(prevProps, prevState) {
-    const { projection, lambda, phi, gamma } = this.state
+  componentDidUpdate(_, prevState) {
+    const { lambda, phi, gamma } = this.state
     const { _update } = this
     const isRotationChange =
       lambda !== prevState.lambda ||
       phi !== prevState.phi ||
       gamma !== prevState.gamma
-    console.log("didUpdate", isRotationChange, lambda, phi, gamma)
     if (isRotationChange) {
-      console.log("_update")
       _update()
     }
   }
