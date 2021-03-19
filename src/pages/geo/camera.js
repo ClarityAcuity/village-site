@@ -1,24 +1,39 @@
 import React from "react"
+import { Box } from "@chakra-ui/react"
 import Slider from "../../components/slider"
 
+const {
+  ColorSchemeEnums: { RED, GREEN, BLUE },
+} = Slider
+const CameraEnums = {
+  LAMBDA: "lambda",
+  PHI: "phi",
+  GAMMA: "gamma",
+}
+const { LAMBDA, PHI, GAMMA } = CameraEnums
+
+/*
 function getBaseLog(x, y) {
   return Math.log(y) / Math.log(x)
 }
+*/
 
 const Camera = ({
   lambda,
   phi,
   gamma,
+  onChange,
+  /*
   width,
   distance,
   tilt,
   scale,
-  onChange,
+  */
 }) => {
   const _handleChnage = (name, value) => {
-    console.log(name, value)
     return onChange(name, value)
   }
+  /* TODO manipulate scale
   const distanceScale = getBaseLog(2, distance)
   const theta = Math.acos(1 / distance)
   const size = ((distance - 1) / (distance - Math.cos(theta))) * Math.sin(theta)
@@ -31,35 +46,42 @@ const Camera = ({
       ((distance - 1) / (distance - Math.cos(thetas))) * Math.sin(thetas)
     return ((Math.pow(2, value) / size) * (width - 2)) / Math.SQRT2
   }
+  */
   return (
-    <div>
+    <Box>
       <Slider
-        name={"lambda"}
+        name={LAMBDA}
+        ariaLabel={`slider-${LAMBDA}`}
         min={-180}
         max={180}
         value={lambda}
         defaultValue={0}
-        onChange={value => _handleChnage("lambda", value)}
+        colorScheme={RED}
+        onChange={value => _handleChnage(LAMBDA, value)}
       />
       <Slider
-        name={"phi"}
+        name={PHI}
+        ariaLabel={`slider-${PHI}`}
         min={-90}
         max={90}
         value={phi}
         defaultValue={0}
+        colorScheme={GREEN}
         onChange={value => {
-          onChange("phi", value)
+          onChange(PHI, value)
         }}
       />
       <Slider
-        name={"gamma"}
+        name={GAMMA}
+        ariaLabel={`slider-${GAMMA}`}
         min={-180}
         max={180}
         value={gamma}
         defaultValue={0}
-        onChange={value => onChange("gamma", value)}
+        colorScheme={BLUE}
+        onChange={value => onChange(GAMMA, value)}
       />
-    </div>
+    </Box>
   )
 }
 
