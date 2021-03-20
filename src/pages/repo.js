@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import { Box, Badge } from "@chakra-ui/react"
 import { Link } from "@chakra-ui/react"
 import { ExternalLinkIcon } from "@chakra-ui/icons"
@@ -20,24 +20,31 @@ const RepoPage = () => {
       }
     }
   `)
+  const {
+    site: {
+      siteMetadata: { username },
+    },
+  } = data
 
-  async function getProjectRequest() {
-    const result = await request({
-      method: "GET",
-      url: `/users/${data.site.siteMetadata.username}/repos`,
-      username: `${data.site.siteMetadata.username}`,
-      sort: "updated",
-    })
-    return result
-  }
+  const _getProjectRequest = useCallback(
+    async function() {
+      return await request({
+        method: "GET",
+        url: `/users/${username}/repos`,
+        username: `${username}`,
+        sort: "updated",
+      })
+    },
+    [username]
+  )
 
   useEffect(() => {
     async function resRepo() {
-      const result = await getProjectRequest()
+      const result = await _getProjectRequest()
       setrepoData(result?.data)
     }
     resRepo()
-  }, [])
+  }, [_getProjectRequest])
 
   return (
     <Layout>

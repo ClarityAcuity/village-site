@@ -1,7 +1,6 @@
 import React, { useState } from "react"
-import { Link as GatsbyLink } from "gatsby"
-import { Flex, Heading, Link } from "@chakra-ui/react"
-import { jsx, css } from "@emotion/react"
+import { Heading, Link } from "@chakra-ui/react"
+import { css } from "@emotion/react"
 
 const OctIcon = () => (
   <svg

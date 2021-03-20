@@ -1,13 +1,9 @@
 import * as d3js from "d3"
 import * as d3geo from "d3-geo"
 import * as geoprojection from "d3-geo-projection"
-import { Library } from "@observablehq/stdlib"
 import * as topojson from "topojson"
 import land50m from "../../pages/geo/land-50m.json"
 import land110m from "../../pages/geo/land-110m.json"
-
-const observer = new Library()
-const { DOM, Generators } = observer
 
 export const d3 = Object.assign({}, d3js, d3geo, geoprojection)
 
@@ -74,12 +70,12 @@ export const projection = (width, height, rotate, camera) =>
   d3
     .geoSatellite()
     .scale(camera.scale)
-    .translate([width / 2, height / 2])
-    .rotate(rotate)
     .tilt(camera.tilt)
     .distance(camera.distance)
     .preclip(preclip(camera))
     .precision(0.1)
+    .translate([width / 2, height / 2])
+    .rotate(rotate)
 
 export const graticule = d3.geoGraticule10()
 

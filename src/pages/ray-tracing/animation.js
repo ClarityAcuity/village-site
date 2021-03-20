@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo } from "react"
+import React, { useEffect, useState, useRef, useMemo, useCallback } from "react"
 import { Box } from "@chakra-ui/react"
 import Canvas from "./canvas"
 import { initImage, getImage } from "../../lib/ray-tracing/helpers"
@@ -17,6 +17,15 @@ function Animation() {
   const [colorMap, setColorMap] = useState(defaultColorMap)
   const [iteration, setIteration] = useState(1)
   const [isFocus, setIsFocus] = useState(false)
+  const _updateAnimationState = useCallback(() => {
+    const {
+      value: { image: nextImage, colorMap: nextColorMap },
+    } = getImage({ scene, width, height, colorMap, iteration }).next()
+
+    setImage(nextImage)
+    setColorMap(nextColorMap)
+    setIteration(iteration + 1)
+  }, [scene, colorMap, iteration])
 
   useClickOutside(clickRef, () => setIsFocus(false))
 
@@ -28,17 +37,7 @@ function Animation() {
     if (isFocus) {
       rAF.current = requestAnimationFrame(_updateAnimationState)
     }
-  }, [iteration, isFocus])
-
-  function _updateAnimationState() {
-    const {
-      value: { image: nextImage, colorMap: nextColorMap },
-    } = getImage({ scene, width, height, colorMap, iteration }).next()
-
-    setImage(nextImage)
-    setColorMap(nextColorMap)
-    setIteration(iteration + 1)
-  }
+  }, [iteration, isFocus, _updateAnimationState])
 
   return (
     <Box ref={clickRef} onClick={() => setIsFocus(true)}>
