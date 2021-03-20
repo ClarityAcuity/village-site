@@ -1,58 +1,54 @@
-import React from "react"
+import React, { useRef, useEffect, useCallback } from "react"
+import PureCanvas from "./pure-canvas"
 import { d3 } from "../../lib/geo/utils"
-import { outline, graticule } from "../../lib/geo/utils"
+import { projection, outline, graticule } from "../../lib/geo/utils"
 
-class Canvas extends React.Component {
-  constructor() {
-    super()
+function Canvas({ width, height, rotate, camera, land }) {
+  const canvasRef = useRef()
+  const _map = useCallback(
+    (projection, context) => {
+      const path = d3.geoPath(projection, context)
 
-    this.canvas = React.createRef()
-    this._map = this._map.bind(this)
-    this._updateCanvas = this._updateCanvas.bind(this)
+      context.save()
+      context.beginPath()
+      path(outline)
+      context.clip()
+      context.fillStyle = "#fff"
+      context.fillRect(0, 0, width, height)
+      context.beginPath()
+      path(graticule)
+      context.strokeStyle = "#ccc"
+      context.stroke()
+      context.beginPath()
+      path(land)
+      context.fillStyle = "#000"
+      context.fill()
+      context.restore()
+      context.beginPath()
+      path(outline)
+      context.strokeStyle = "#000"
+      context.stroke()
+    },
+    [width, height, land]
+  )
+  const _updateCanvas = useCallback(
+    () =>
+      _map(
+        projection(width, height, rotate, camera),
+        canvasRef.current.getContext("2d")
+      ),
+    [width, height, rotate, camera, _map]
+  )
+
+  useEffect(() => {
+    _updateCanvas()
+  }, [_updateCanvas])
+
+  function _saveContext(canvas) {
+    canvasRef.current = canvas
   }
 
-  _map(projection, context) {
-    const { width, height, /* outline, graticule,*/ land } = this.props
-    const path = d3.geoPath(projection, context)
-    console.log("_map", this.props)
-
-    context.save()
-    context.beginPath()
-    path(outline)
-    context.clip()
-    context.fillStyle = "#fff"
-    context.fillRect(0, 0, width, height)
-    context.beginPath()
-    path(graticule)
-    context.strokeStyle = "#ccc"
-    context.stroke()
-    context.beginPath()
-    path(land)
-    context.fillStyle = "#000"
-    context.fill()
-    context.restore()
-    context.beginPath()
-    path(outline)
-    context.strokeStyle = "#000"
-    context.stroke()
-  }
-
-  _updateCanvas() {
-    const { projection /*outline, graticule, land*/ } = this.props
-    const ctx = this.canvas.current.getContext("2d")
-    this._map(projection, ctx)
-  }
-
-  render() {
-    const { width, height } = this.props
-    return <canvas ref={this.canvas} width={width} height={height} />
-  }
-  componentDidMount() {
-    this._updateCanvas()
-  }
-  componentDidUpdate() {
-    this._updateCanvas()
-  }
+  return <PureCanvas contextRef={_saveContext} width={width} height={height} />
 }
 
 export default Canvas

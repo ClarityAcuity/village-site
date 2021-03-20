@@ -70,12 +70,12 @@ export const projection = (width, height, rotate, camera) =>
   d3
     .geoSatellite()
     .scale(camera.scale)
-    .translate([width / 2, height / 2])
-    .rotate(rotate)
     .tilt(camera.tilt)
     .distance(camera.distance)
     .preclip(preclip(camera))
     .precision(0.1)
+    .translate([width / 2, height / 2])
+    .rotate(rotate)
 
 export const graticule = d3.geoGraticule10()
 
