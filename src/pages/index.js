@@ -6,7 +6,7 @@ function IndexPage() {
   
   return (
     <Layout m="5">
-      <SEO title="Home" />
+      <SEO title="Village Build By Gatsby" />
       <h1>Hello World</h1>
     </Layout>
   )
