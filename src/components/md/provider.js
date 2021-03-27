@@ -6,11 +6,6 @@ import CodeBlock from "./code-block"
 
 const shortcodes = { Link }
 
-export default props => (
-  <MDXProvider components={components}>
-    <main {...props}></main>
-  </MDXProvider>
-)
 const components = {
   h1: props => <CustomHeading as="h1" size="2xl" {...props} />,
   h2: props => <CustomHeading as="h2" size="xl" {...props} />,

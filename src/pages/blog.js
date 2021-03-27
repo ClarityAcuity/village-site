@@ -1,32 +1,14 @@
 import React from "react"
-import { Link, useStaticQuery, graphql } from "gatsby"
+import { Link, graphql } from "gatsby"
 import { Box, Badge } from "@chakra-ui/react"
 import Layout from "../components/layout"
 import { TimeIcon, ViewIcon } from "@chakra-ui/icons"
 import { SizeEnums, ColorEnums } from "../lib/style-utils"
 
 function IndexPageQuery({ data }) {
-  const query = useStaticQuery(graphql`
-    query IndexPageQuery {
-      allMdx(sort: { order: DESC, fields: frontmatter___date }) {
-        nodes {
-          id
-          slug
-          timeToRead
-          excerpt
-          frontmatter {
-            title
-            date
-            author
-          }
-        }
-      }
-    }
-  `)
-
   const {
     allMdx: { nodes },
-  } = query
+  } = data
 
   const { SMALL, LARGE, EXTRALARGE, XXL } = SizeEnums
 
@@ -57,7 +39,7 @@ function IndexPageQuery({ data }) {
                 </Badge>
               </Box>
               <Box as="h1" fontWeight="semibold" fontSize={EXTRALARGE}>
-                <Link to={`/posts/${slug}`}>{title}</Link>
+                <Link to={`/blog/${slug}`}>{title}</Link>
               </Box>
               <Box marginTop="1" as="p" fontSize={LARGE}>
                 {excerpt}
@@ -91,5 +73,23 @@ function IndexPageQuery({ data }) {
   }
   return <Layout>{_renderPosts()}</Layout>
 }
+
+export const query = graphql`
+  query IndexPageQuery {
+    allMdx(sort: { order: DESC, fields: frontmatter___date }) {
+      nodes {
+        id
+        slug
+        timeToRead
+        excerpt
+        frontmatter {
+          title
+          date
+          author
+        }
+      }
+    }
+  }
+`
 
 export default IndexPageQuery

@@ -3,7 +3,6 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 function IndexPage() {
-  
   return (
     <Layout m="5">
       <SEO title="Village Build By Gatsby" />
