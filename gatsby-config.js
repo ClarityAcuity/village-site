@@ -7,15 +7,10 @@ module.exports = {
   siteMetadata,
   plugins: [
     `gatsby-plugin-react-helmet`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
-      },
-    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-remark-images`,
+    `gatsby-plugin-glslify`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -28,32 +23,36 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
-    `gatsby-plugin-glslify`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/src/images`,
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `posts`,
-        path: `${__dirname}/src/pages/posts/`,
+        path: `${__dirname}/src/posts`,
       },
     },
-    {
-      resolve: "gatsby-plugin-page-creator",
-      options: {
-        path: `${__dirname}/src/pages/posts/`,
-      },
-    },
-    `gatsby-remark-images`,
+    // {
+    //   resolve: "gatsby-plugin-page-creator",
+    //   options: {
+    //     path: `${__dirname}/src/pages/posts/`,
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [`.mdx`, `.md`],
         defaultLayouts: {
-          posts: require.resolve("./src/components/md/posts-layout.js"),
           default: require.resolve(
-            "./src/components/md/default-page-layout.js"
+            `${__dirname}/src/components/md/default-page-layout.js`
           ),
         },
         // shouldBlockNodeFromTransformation(node) {
