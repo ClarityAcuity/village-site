@@ -1,7 +1,7 @@
 import React from "react"
 import { Icon } from "@chakra-ui/react"
 
-export const GitHubicon = props => (
+export const GitHubIcon = props => (
   <Icon objectFit="cover" {...props}>
     <path
       fill="currentColor"

@@ -3,8 +3,7 @@ import { Link } from "@chakra-ui/react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { GitHubicon } from "../icon/githubicon"
-import { Instagramicon } from "../icon/Instagramicon"
+import { GitHubIcon, InstagramIcon } from "../icons"
 
 const SecondPage = ({ data }) => {
   const {
@@ -21,12 +20,12 @@ const SecondPage = ({ data }) => {
       <p>{description}</p>
       <br />
       <Link href={`https://github.com/${username}`}>
-        <GitHubicon />
+        <GitHubIcon />
         github
       </Link>
       <br />
       <Link href={`https://www.instagram.com/${username}`}>
-        <Instagramicon />
+        <InstagramIcon />
         instagram
       </Link>
     </Layout>

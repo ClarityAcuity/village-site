@@ -39,7 +39,7 @@ const Header = ({ siteTitle }) => {
         <Flex alignItems="center" width="960px" margin="0 auto">
           <Heading as="h2" size={EXTRALARGE} marginLeft="1rem">
             <Box margin="1rem">
-              <Link to="/" width={{ base: "240px", ms: "300px", lg: "390px" }}>
+              <Link to="/" width={{ base: "240px", sm: "300px", lg: "390px" }}>
                 {siteTitle}
               </Link>
             </Box>

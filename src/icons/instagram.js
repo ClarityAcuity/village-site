@@ -1,7 +1,7 @@
 import React from "react"
 import { Icon } from "@chakra-ui/react"
 
-export const Instagramicon = props => (
+export const InstagramIcon = props => (
     <Icon objectFit="cover" {...props}>
       <path
         fill="currentColor"
