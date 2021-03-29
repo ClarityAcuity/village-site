@@ -1,58 +1,110 @@
 import React from "react"
 import { MDXProvider } from "@mdx-js/react"
-import { Box, List, ListItem, Link, Image } from "@chakra-ui/react"
-import CustomHeading from "./custom-heading"
+import { Box, Text, Link, Image, Code, Divider } from "@chakra-ui/react"
+import Heading from "./heading"
+import MDLink from "./link"
 import CodeBlock from "./code-block"
+import BlockQuote from "./block-quote"
+import MDList from "./list"
+import MDTable from "./table"
+import { ColorSchemeEnums } from "../../lib/style-utils"
+
+const { GRAY } = ColorSchemeEnums
 
 const shortcodes = { Link }
+const { UnorderedList, OrderedList, ListItem } = MDList
+const { Thead, Tbody, Tr, Th, Td } = MDTable
 
 const components = {
-  h1: props => <CustomHeading as="h1" size="2xl" {...props} />,
-  h2: props => <CustomHeading as="h2" size="xl" {...props} />,
-  h3: props => <CustomHeading as="h3" size="lg" {...props} />,
-  h4: props => <CustomHeading as="h4" size="md" {...props} />,
-  h5: props => <CustomHeading as="h5" size="sm" {...props} />,
-  h6: props => <CustomHeading as="h6" size="xs" {...props} />,
+  h1: props => <Heading as="h1" size="2xl" {...props} />,
+  h2: props => <Heading as="h2" size="xl" {...props} />,
+  h3: props => <Heading as="h3" size="lg" {...props} />,
+  h4: props => <Heading as="h4" size="md" {...props} />,
+  h5: props => <Heading as="h5" size="sm" {...props} />,
+  h6: props => <Heading as="h6" size="xs" {...props} />,
 
-  p: props => <p style={{ fontSize: "18px", lineHeight: 1.6 }} {...props} />,
+  p: props => <Text margin=".5rem" {...props} />,
 
-  ol: props => <List as="ol" styleType="decimal" {...props} />,
-  ul: props => <List as="ul" {...props} styleType="disc" />,
+  // TODO Task List
+  ol: props => {
+    return <OrderedList styleType="decimal" {...props} />
+  },
+  ul: props => <UnorderedList styleType="disc" {...props} />,
   li: props => <ListItem {...props} />,
 
-  a: props => <Link color="#0366d6" {...props} />,
+  a: props => <MDLink {...props} />,
 
   img: props => <Image {...props} />,
 
-  // ``` ``` => <pre><code></code></pre>, ` ` => <code></code>
-  pre: props => (
-    <Box as="pre" mb="1.45rem" backgroundColor="gray.100" {...props} />
-  ),
-  code: props => <CodeBlock colorScheme="gray.100" {...props} />,
+  pre: preProps => {
+    const props = preToCodeBlock(preProps)
+    // if there's a codeString and some props, we passed the test
+    if (props) {
+      return <CodeBlock colorScheme={GRAY} {...props} />
+    } else {
+      // it's possible to have a pre without a code in it
+      return (
+        <Box
+          as="pre"
+          mb="1.45rem"
+          backgroundColor="gray.100"
+          overflow="auto"
+          {...preProps}
+        />
+      )
+    }
+  },
 
-  table: props => <Box as="table" {...props} />,
-  thead: props => <Box as="thead" {...props} />,
-  tr: props => <Box as="tr" {...props} />,
-  th: props => <Box as="th" {...props} />,
-  tbody: props => <Box as="tbody" {...props} />,
-  td: props => <Box as="td" {...props} />,
+  inlineCode: props => <Code colorScheme={GRAY} {...props} />,
+  code: props => <CodeBlock colorScheme={GRAY} {...props} />,
 
-  blockquote: props => (
-    <Box
-      as="blockquote"
-      p={[0, 4]}
-      color="gray.200"
-      borderLeft=".25em solid gray.100"
-      // css={css`
-      //   padding: 0 1em;
-      //   color: #6a737d;
-      //   border-left: 0.25em solid #dfe2e5;
-      // `}
-      {...props}
-    />
+  table: props => <MDTable {...props} />,
+  thead: props => <Thead {...props} />,
+  tr: props => <Tr {...props} />,
+  th: props => <Th {...props} />,
+  tbody: props => <Tbody {...props} />,
+  td: props => <Td {...props} />,
+
+  blockquote: props => <BlockQuote {...props} />,
+
+  hr: props => (
+    <Divider orientation="horizontal" variant="solid" margin="1rem 0" />
   ),
 
   ...shortcodes,
+}
+
+// taken from kent c. dodds blog source code
+// lifted this from mdx-utils
+// it doesn't compile it's code and this busted IE, so I'm just vendoring it.
+function preToCodeBlock(preProps) {
+  if (
+    // children is code element
+    preProps.children &&
+    // code props
+    preProps.children.props &&
+    // if children is actually a <code>
+    preProps.children.props.mdxType === "code"
+  ) {
+    // we have a <pre><code> situation
+    const {
+      children: codeString,
+      className = "",
+      ...props
+    } = preProps.children.props
+
+    const matches = className.match(/language-(?<lang>.*)/)
+
+    return {
+      children: codeString.trim(),
+      className,
+      language:
+        matches && matches.groups && matches.groups.lang
+          ? matches.groups.lang
+          : "",
+      ...props,
+    }
+  }
 }
 
 export const Provider = ({ children }) => (
@@ -61,7 +113,7 @@ export const Provider = ({ children }) => (
     maxWidth="960px"
     padding="1.45rem 1.0875rem 1.45rem"
     flexDirection="column"
-    minHeight={{base: "75.7vh",lg: "76.3vh"}}
+    minHeight={{ base: "75.7vh", lg: "76.3vh" }}
     p={{ base: 8, lg: 16 }}
   >
     <MDXProvider components={components}>{children}</MDXProvider>

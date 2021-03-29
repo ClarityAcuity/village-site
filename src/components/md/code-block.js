@@ -13,7 +13,7 @@ import github from "prism-react-renderer/themes/github"
 // import ultramin from "prism-react-renderer/themes/ultramin"
 // import vsDark from "prism-react-renderer/themes/vsDark"
 
-// TODO github for light, palenight for dark theme
+// TODO github for light, palenight for dark theme and use chakra component
 export default ({ children, className }) => {
   const language = className?.replace(/language-/, "")
   return (
@@ -24,7 +24,10 @@ export default ({ children, className }) => {
       language={language}
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre className={className} style={{ ...style, padding: "20px" }}>
+        <pre
+          className={className}
+          style={{ ...style, margin: "1rem 0", padding: "1rem", overflow: "auto" }}
+        >
           {tokens.map((line, i) => (
             <div key={i} {...getLineProps({ line, key: i })}>
               {line.map((token, key) => (
