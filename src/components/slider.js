@@ -6,27 +6,7 @@ import {
   SliderFilledTrack,
   SliderThumb,
 } from "@chakra-ui/react"
-
-const ColorSchemeEnums = {
-  BLUE: "blue",
-  CYAN: "cyan",
-  GRAY: "gray",
-  GREEN: "green",
-  ORANGE: "orange",
-  PINK: "pink",
-  PURPLE: "purple",
-  RED: "red",
-  TEAL: "teal",
-  YELLOW: "yellow",
-  WHITE_ALPHA: "whiteAlpha",
-  BLACK_ALPHA: "blackAlpha",
-  LINKEDIN: "linkedin",
-  FACEBOOK: "facebook",
-  MESSAGER: "messenger",
-  WHATSAPP: "whatsapp",
-  TWITTER: "twitter",
-  TELEGRAM: "telegram",
-}
+import { ColorSchemeEnums } from "../lib/style-utils"
 
 const Slider = ({
   name,

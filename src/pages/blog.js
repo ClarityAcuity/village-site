@@ -3,16 +3,16 @@ import { Link, graphql } from "gatsby"
 import { Box, Badge } from "@chakra-ui/react"
 import Layout from "../components/layout"
 import { TimeIcon, ViewIcon } from "@chakra-ui/icons"
-import { SizeEnums, ColorEnums } from "../lib/style-utils"
+import { SizeEnums, ColorEnums, ColorSchemeEnums } from "../lib/style-utils"
+
+const { SMALL, LARGE, EXTRALARGE, XXL } = SizeEnums
+const { GRAY } = ColorEnums
+const { TEAL } = ColorSchemeEnums
 
 function IndexPageQuery({ data }) {
   const {
     allMdx: { nodes },
   } = data
-
-  const { SMALL, LARGE, EXTRALARGE, XXL } = SizeEnums
-
-  const { GRAY } = ColorEnums
 
   function _renderPosts() {
     return nodes.map(
@@ -34,7 +34,7 @@ function IndexPageQuery({ data }) {
           >
             <Box padding="4">
               <Box d="flex" alignItems="baseline">
-                <Badge borderRadius="full" colorScheme="teal">
+                <Badge borderRadius="full" colorScheme={TEAL}>
                   {author}
                 </Badge>
               </Box>
