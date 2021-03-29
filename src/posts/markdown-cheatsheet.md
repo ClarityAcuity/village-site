@@ -43,10 +43,15 @@ Strikethrough uses two tildes. ~~Scratch this.~~
 ## Lists
 
 1. First ordered list item
+
 2. Another item
-⋅⋅* Unordered sub-list.
+
+    * Unordered sub-list.
+
 1. Actual numbers don't matter, just that it's a number
-⋅⋅1. Ordered sub-list
+
+    1. Ordered sub-list
+
 4. And another item.
 
 ⋅⋅⋅You can have properly indented paragraphs within list items. Notice the blank line above, and the leading spaces (at least one, but we'll use three here to also align the raw Markdown).
@@ -142,7 +147,18 @@ Markdown | Less | Pretty
 
 Quote break.
 
-> This is a very long line that will still be quoted properly when it wraps. Oh boy let's keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can *put* **Markdown** into a blockquote. 
+> This is a very long line that will still be quoted properly when it wraps. Oh boy let's keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can *put* **Markdown** into a blockquote.
+
+## Definition Lists
+
+Some Markdown processors allow you to create definition lists of terms and their corresponding definitions.
+
+First Term
+: This is the definition of the first term.
+
+Second Term
+: This is one definition of the second term.
+: This is another definition of the second term.
 
 ## Inline HTML
 
@@ -178,6 +194,14 @@ This line is separated from the one above by two newlines, so it will be a *sepa
 
 This line is also a separate paragraph, but...
 This line is only separated by a single newline, so it's a separate line in the *same paragraph*.
+
+## Task Lists
+
+Task lists allow you to create a list of items with checkboxes.
+
+* [x] Write the press release
+* [ ] Update the website
+* [ ] Contact the media
 
 ## YouTube Videos
 
