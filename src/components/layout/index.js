@@ -13,35 +13,37 @@ import Header from "../header"
 import Footer from "../footer"
 
 const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
+  const {
+    site: {
+      siteMetadata: { title, username, url },
+    },
+  } = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
         siteMetadata {
           title
           username
+          url
         }
       }
     }
   `)
 
   return (
-    <>
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <Flex
-        margin="0 auto"
-        maxWidth="960px"
+    <Flex height="100vh" flexDirection="column">
+      <Header siteTitle={title} />
+      <Box
+        as="main"
+        flexGrow="1"
         padding="1.45rem 1.0875rem 1.45rem"
-        flexDirection="column"
-        minHeight={{ base: "75.7vh", lg: "76.3vh" }}
+        overflow="auto"
       >
-        <Box flexGrow="1">
-          <main>{children}</main>
+        <Box margin="0 auto" maxWidth="960px">
+          {children}
         </Box>
-      </Flex>
-      <Footer
-        username={data.site.siteMetadata.username}
-      />
-    </>
+      </Box>
+      <Footer username={username} />
+    </Flex>
   )
 }
 

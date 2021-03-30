@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import PropTypes from "prop-types"
 import {
   Box,
   Slider as ChakraSlider,
@@ -52,5 +53,19 @@ const Slider = ({
 }
 
 Slider.ColorSchemeEnums = ColorSchemeEnums
+
+Slider.propTypes = {
+  name: PropTypes.string,
+  min: PropTypes.number,
+  max: PropTypes.number,
+  step: PropTypes.number,
+  value: PropTypes.number,
+  defaultValue: PropTypes.number,
+  ariaLabel: PropTypes.string,
+  colorScheme: PropTypes.oneOf(Object.values(ColorSchemeEnums)),
+  isDisabled: PropTypes.bool,
+  isReadOnly: PropTypes.bool,
+  onChange: PropTypes.func,
+}
 
 export default Slider

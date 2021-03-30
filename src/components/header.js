@@ -16,7 +16,6 @@ const links = [
   { name: "Blog", path: "/blog" },
   { name: "Demo", path: "/demo" },
   { name: "Repo", path: "/repo" },
-  { name: "About", path: "/about" },
 ]
 
 const { LARGE, EXTRALARGE } = SizeEnums
