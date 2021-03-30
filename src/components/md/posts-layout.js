@@ -1,5 +1,7 @@
 import React from "react"
-import { graphql } from "gatsby"
+import { Link, graphql } from "gatsby"
+import { ArrowBackIcon } from "@chakra-ui/icons"
+import { Flex, Text } from "@chakra-ui/react"
 import Header from "../header"
 import Footer from "../footer"
 import SEO from "../seo"
@@ -23,6 +25,12 @@ export default function PostsLayout({ data }) {
       <Header siteTitle="Village" />
       <Provider>
         <Renderer>{post.body}</Renderer>
+        <Link to="/blog">
+          <Flex alignItems="center">
+            <ArrowBackIcon boxSize="1.5rem" />
+            <Text fontSize="1.5rem">Back to posts</Text>
+          </Flex>
+        </Link>
       </Provider>
       <Footer />
     </>

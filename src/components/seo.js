@@ -30,7 +30,7 @@ function SEO({
             username
             url
             image
-            twitterUsername
+            twitter
             keywords
           }
         }

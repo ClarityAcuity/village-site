@@ -1,23 +1,20 @@
 import React from "react"
-import { Table, Thead, Tbody, Tfoot, Tr, Th, Td } from "@chakra-ui/react"
-import { ColorEnums, ColorSchemeEnums } from "../../lib/style-utils"
+import { Box, Table, Thead, Tbody, Tfoot, Tr, Th, Td } from "@chakra-ui/react"
+import { ColorSchemeEnums } from "../../lib/style-utils"
 
-const { GRAY: grayColor } = ColorEnums
 const { GRAY } = ColorSchemeEnums
 
 export default function MDTable({ children }) {
   return (
-    <Table
-      variant="striped"
-      overflow="auto"
+    <Box
       margin="1rem"
-      borderTop="1px"
-      borderStyle="solid"
-      boederColor={grayColor}
-      colorScheme={GRAY}
+      boxShadow="outline"
+      overflow="auto"
     >
-      {children}
-    </Table>
+      <Table variant="striped" colorScheme={GRAY}>
+        {children}
+      </Table>
+    </Box>
   )
 }
 
