@@ -1,40 +1,33 @@
 import React from "react"
-import { Box, Flex, Link } from "@chakra-ui/react"
+import { Box, Center } from "@chakra-ui/react"
+import Landing from "./landing"
+import IconLink from "./icon-link"
+import { GatsbyIcon } from "../icons"
 import { ColorEnums } from "../lib/style-utils"
-import { GitHubIcon, InstagramIcon } from "../icons"
 
 const { BLACK, WHITE } = ColorEnums
 
-const Footer = ({ username }) => {
+const Footer = () => {
   return (
-    <Flex
+    <Center
+      as="footer"
       background={BLACK}
-      alignItems="center"
-      justifyContent="center"
-      margin="0 auto"
+      margin="0"
       color={WHITE}
       height="100px"
     >
-      <footer>
-        <Flex alignItems="center" justifyContent="center" margin="5px">
-          <Box>
-            <Link href={`https://github.com/${username}`}>
-              <GitHubIcon />
-            </Link>
-          </Box>
-          <Box marginLeft="15px">
-            <Link href={`https://www.instagram.com/${username}`}>
-              <InstagramIcon />
-            </Link>
-          </Box>
-        </Flex>
+      <Box as="footer">
+        <Landing color={WHITE} />
         <Box>
-          © {new Date().getFullYear()}, Built with
+          © {new Date().getFullYear()}, Built with Gatsby
           {` `}
-          <a href="https://www.gatsbyjs.org">gatsby</a>
+          <IconLink
+            href="https://www.gatsbyjs.org"
+            icon={<GatsbyIcon color={WHITE} />}
+          />
         </Box>
-      </footer>
-    </Flex>
+      </Box>
+    </Center>
   )
 }
 export default Footer
