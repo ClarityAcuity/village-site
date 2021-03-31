@@ -10,16 +10,10 @@ import PropTypes from "prop-types"
 import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
-function SEO({
-  description,
-  lang,
-  meta,
-  title,
-  keywords,
-  image: metaImage,
-  pathname,
-}) {
-  const { site } = useStaticQuery(
+function SEO({ description, lang, meta, title, keywords, image, pathname }) {
+  const {
+    site: { siteMetadata },
+  } = useStaticQuery(
     graphql`
       query {
         site {
@@ -29,7 +23,6 @@ function SEO({
             author
             username
             url
-            image
             twitter
             keywords
           }
@@ -37,12 +30,9 @@ function SEO({
       }
     `
   )
-  const metaDescription = description || site.siteMetadata.description
-  const image =
-    metaImage && metaImage.src
-      ? `${site.siteMetadata.url}${metaImage.src}`
-      : null
-  const canonical = pathname ? `${site.siteMetadata.siteUrl}${pathname}` : null
+  const metaDescription = description || siteMetadata.description
+  const metaImage = image || null
+  const canonical = pathname ? `${siteMetadata.url}/blog/${pathname}` : siteMetadata.url
 
   return (
     <Helmet
@@ -50,7 +40,7 @@ function SEO({
         lang,
       }}
       title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
+      titleTemplate={`%s | ${siteMetadata.title}`}
       link={
         canonical
           ? [
@@ -80,7 +70,7 @@ function SEO({
         },
         {
           name: `twitter:creator`,
-          content: site.siteMetadata.author,
+          content: siteMetadata.author,
         },
         {
           name: `twitter:title`,
@@ -99,7 +89,7 @@ function SEO({
               }
             : {
                 name: "keywords",
-                content: site.siteMetadata.keywords.join(","),
+                content: siteMetadata.keywords.join(","),
               }
         )
         .concat(
@@ -107,7 +97,7 @@ function SEO({
             ? [
                 {
                   property: "og:image",
-                  content: image,
+                  content: metaImage,
                 },
                 {
                   property: "og:image:width",

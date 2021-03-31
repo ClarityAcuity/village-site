@@ -33,10 +33,9 @@ export default ({ as, size, children, ...props }) => {
     >
       {children}
       <Link
-        id={`user-content-${as}`}
+        id={`user-content-${children}`}
         className="anchor"
         href={`#${children}`}
-        aria-hidden="true"
       >
         <OctIcon />
       </Link>
