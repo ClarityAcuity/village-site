@@ -1,13 +1,17 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import { Container, Image, Heading, Text } from "@chakra-ui/react"
+import { Container, Heading, Text } from "@chakra-ui/react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import Image from "../components/image"
 
 function IndexPage() {
   const {
     site: {
-      siteMetadata: { username, url, image },
+      siteMetadata: { username },
+    },
+    placeholderImage: {
+      childImageSharp: { fluid },
     },
   } = useStaticQuery(graphql`
     query {
@@ -15,17 +19,21 @@ function IndexPage() {
         id
         siteMetadata {
           username
-          url
-          image
+        }
+      }
+      placeholderImage: file(relativePath: { eq: "bird.jpeg" }) {
+        childImageSharp {
+          fluid(maxWidth: 300) {
+            ...GatsbyImageSharpFluid
+          }
         }
       }
     }
   `)
   return (
-    <Layout m="5">
-      <SEO title="Village Build By Gatsby" />
+    <Layout>
       <Container>
-        <Image src={`${url}${image}`} />
+        <Image fluid={fluid} alt="" />
         <Heading as="h3">@{username}</Heading>
         <Text>a Taipei-based developer</Text>
       </Container>

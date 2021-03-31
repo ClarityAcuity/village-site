@@ -14,18 +14,27 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `village site`,
+        short_name: `village`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,
-        display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        display: `standalone`,
+        icon: `src/images/village.svg`, // This path is relative to the root of the site.
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
-    `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-plugin-offline`,
+      options: {
+        precachePages: [`/`, `/repo`],
+        // appendScript: require.resolve(`src/custom-sw-code.js`),
+        workboxConfig: {
+          importWorkboxFrom: `cdn`,
+        },
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -121,5 +130,21 @@ module.exports = {
         isUsingColorMode: true,
       },
     },
+    // {
+    //   resolve: "gatsby-plugin-web-vitals",
+    //   options: {
+    //     // The Google Analytics property ID; the reporting code won't be generated without it
+    //     trackingId: process.env.GA_TRACKING_ID,
+    //     // An array with metrics you want to track and send to analytics
+    //     metrics: [`FID`, `TTFB`, `LCP`, `CLS`, `FCP`],
+    //     // Event Category (optional) { string }, default 'Web Vitals'
+    //     eventCategory: "Performance",
+    //     // Include Web Vitals tracking in development
+    //     // Defaults to false meaning Vitals will only be tracked in production.
+    //     includeInDevelopment: false,
+    //     // Prints metrics in the console when true
+    //     debug: false,
+    //   },
+    // },
   ],
 }

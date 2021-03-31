@@ -8,7 +8,6 @@ module.exports = {
   author: `@gatsbyjs`,
   username: `ClarityAcuity`,
   url: process.env.GATSBY_SITE_URL || '',
-  image: "images/bird.jpeg", // Path to your image you placed in the 'static' folder
   twitter: "VillagerLiao",
   facebook: "chunmin.liao.777",
   instagram: "villager1988",
