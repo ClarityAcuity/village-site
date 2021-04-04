@@ -32,7 +32,9 @@ function SEO({ description, lang, meta, title, keywords, image, pathname }) {
   )
   const metaDescription = description || siteMetadata.description
   const metaImage = image || null
-  const canonical = pathname ? `${siteMetadata.url}/blog/${pathname}` : siteMetadata.url
+  const canonical = pathname
+    ? `${siteMetadata.url}/blog/${pathname}`
+    : siteMetadata.url
 
   return (
     <Helmet
