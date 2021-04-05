@@ -20,6 +20,7 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `standalone`,
+        prefer_related_applications: true,
         icon: `src/images/village.svg`,
         icon_options: {
           purpose: `any maskable`,
@@ -34,7 +35,7 @@ module.exports = {
         precachePages: [`/`, `/repo`],
         // appendScript: require.resolve(`src/custom-sw-code.js`),
         workboxConfig: {
-          importWorkboxFrom: `cdn`,
+          importWorkboxFrom: `local`,
         },
       },
     },
