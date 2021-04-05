@@ -33,10 +33,9 @@ function SEO({ description, lang, meta, title, keywords, image, pathname }) {
   const metaDescription = description || siteMetadata.description
   const metaImage = image || null
   const canonical = pathname
-    ? `${process.env.GATSBY_SITE_URL}/blog/${pathname}`
-    : process.env.GATSBY_SITE_URL
+    ? `${siteMetadata.url}/blog/${pathname}`
+    : siteMetadata.url
 
-  console.log(process.env.GATSBY_SITE_URL, siteMetadata.url)
   return (
     <Helmet
       htmlAttributes={{
