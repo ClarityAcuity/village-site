@@ -1,9 +1,8 @@
 import React from "react"
 import { MDXProvider } from "@mdx-js/react"
-import { Box, Text, Link, Code, Divider } from "@chakra-ui/react"
+import { Box, Text, Link, Code, Divider, Img } from "@chakra-ui/react"
 import Heading from "./heading"
 import MDLink from "./link"
-import Image from "../image"
 import CodeBlock from "./code-block"
 import BlockQuote from "./block-quote"
 import MDList from "./list"
@@ -17,27 +16,27 @@ const { UnorderedList, OrderedList, ListItem } = MDList
 const { Thead, Tbody, Tr, Th, Td } = MDTable
 
 const components = {
-  h1: props => <Heading as="h1" size="2xl" {...props} />,
-  h2: props => <Heading as="h2" size="xl" {...props} />,
-  h3: props => <Heading as="h3" size="lg" {...props} />,
-  h4: props => <Heading as="h4" size="md" {...props} />,
-  h5: props => <Heading as="h5" size="sm" {...props} />,
-  h6: props => <Heading as="h6" size="xs" {...props} />,
+  h1: (props) => <Heading as="h1" size="2xl" {...props} />,
+  h2: (props) => <Heading as="h2" size="xl" {...props} />,
+  h3: (props) => <Heading as="h3" size="lg" {...props} />,
+  h4: (props) => <Heading as="h4" size="md" {...props} />,
+  h5: (props) => <Heading as="h5" size="sm" {...props} />,
+  h6: (props) => <Heading as="h6" size="xs" {...props} />,
 
-  p: props => <Text margin=".5rem" {...props} />,
+  p: (props) => <Text margin=".5rem" {...props} />,
 
   // TODO Task List
-  ol: props => {
+  ol: (props) => {
     return <OrderedList styleType="decimal" {...props} />
   },
-  ul: props => <UnorderedList styleType="disc" {...props} />,
-  li: props => <ListItem {...props} />,
+  ul: (props) => <UnorderedList styleType="disc" {...props} />,
+  li: (props) => <ListItem {...props} />,
 
-  a: props => <MDLink {...props} />,
+  a: (props) => <MDLink {...props} />,
 
-  img: props => <Image {...props} />,
+  img: (props) => <Img {...props} />,
 
-  pre: preProps => {
+  pre: (preProps) => {
     const props = preToCodeBlock(preProps)
     // if there's a codeString and some props, we passed the test
     if (props) {
@@ -56,19 +55,19 @@ const components = {
     }
   },
 
-  inlineCode: props => <Code colorScheme={GRAY} {...props} />,
-  code: props => <CodeBlock colorScheme={GRAY} {...props} />,
+  inlineCode: (props) => <Code colorScheme={GRAY} {...props} />,
+  code: (props) => <CodeBlock colorScheme={GRAY} {...props} />,
 
-  table: props => <MDTable {...props} />,
-  thead: props => <Thead {...props} />,
-  tr: props => <Tr {...props} />,
-  th: props => <Th {...props} />,
-  tbody: props => <Tbody {...props} />,
-  td: props => <Td {...props} />,
+  table: (props) => <MDTable {...props} />,
+  thead: (props) => <Thead {...props} />,
+  tr: (props) => <Tr {...props} />,
+  th: (props) => <Th {...props} />,
+  tbody: (props) => <Tbody {...props} />,
+  td: (props) => <Td {...props} />,
 
-  blockquote: props => <BlockQuote {...props} />,
+  blockquote: (props) => <BlockQuote {...props} />,
 
-  hr: props => (
+  hr: () => (
     <Divider orientation="horizontal" variant="solid" margin="1rem 0" />
   ),
 

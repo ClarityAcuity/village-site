@@ -2,7 +2,6 @@ import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { Container, Heading, Text } from "@chakra-ui/react"
 import Layout from "../components/layout"
-import SEO from "../components/seo"
 import Image from "../components/image"
 
 function IndexPage() {
@@ -11,7 +10,7 @@ function IndexPage() {
       siteMetadata: { username },
     },
     placeholderImage: {
-      childImageSharp: { fluid },
+      childImageSharp: { gatsbyImageData },
     },
   } = useStaticQuery(graphql`
     query {
@@ -23,9 +22,11 @@ function IndexPage() {
       }
       placeholderImage: file(relativePath: { eq: "bird.jpeg" }) {
         childImageSharp {
-          fluid(maxWidth: 300) {
-            ...GatsbyImageSharpFluid
-          }
+          gatsbyImageData(
+            layout: CONSTRAINED
+            placeholder: BLURRED
+            formats: [AUTO, WEBP, AVIF]
+          )
         }
       }
     }
@@ -33,7 +34,7 @@ function IndexPage() {
   return (
     <Layout>
       <Container>
-        <Image fluid={fluid} alt="" />
+        <Image image={gatsbyImageData} alt="" />
         <Heading as="h3">@{username}</Heading>
         <Text>a Taipei-based developer</Text>
       </Container>

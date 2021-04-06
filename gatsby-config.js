@@ -7,9 +7,9 @@ module.exports = {
   siteMetadata,
   plugins: [
     `gatsby-plugin-react-helmet`,
-    `gatsby-transformer-sharp`,
+    `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
-    `gatsby-remark-images`,
+    `gatsby-transformer-sharp`,
     `gatsby-plugin-glslify`,
     {
       resolve: `gatsby-plugin-manifest`,
@@ -20,8 +20,8 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `standalone`,
-        prefer_related_applications: true,
         icon: `src/images/village.svg`,
+        cache_busting_mode: "none",
         icon_options: {
           purpose: `any maskable`,
         },
@@ -32,10 +32,11 @@ module.exports = {
     {
       resolve: `gatsby-plugin-offline`,
       options: {
-        precachePages: [`/`, `/repo`],
-        // appendScript: require.resolve(`src/custom-sw-code.js`),
+        // precachePages: [`/*`, `/blog/*`],
+        // appendScript: require.resolve(`${__dirname}/custom-sw-code.js`),
         workboxConfig: {
           importWorkboxFrom: `local`,
+          globPatterns: ["**/static/*"],
         },
       },
     },
@@ -78,7 +79,7 @@ module.exports = {
         remarkPlugins: [capitalize, emoji],
         gatsbyRemarkPlugins: [
           {
-            resolve: `gatsby-remark-images`,
+            resolve: `gatsby-plugin-image`,
             options: {
               maxWidth: 1035,
               sizeByPixelDensity: true,
