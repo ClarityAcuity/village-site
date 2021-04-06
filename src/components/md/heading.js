@@ -11,7 +11,7 @@ function getId(node) {
   return id
 }
 
-export default ({ as, size, children, ...props }) => {
+export default ({ as, size, margin, children, isCenter, ...props }) => {
   const [isHover, setIsHover] = useState(false)
   const visibility = isHover ? "visible" : "hidden"
   const id = getId(children)
@@ -33,9 +33,9 @@ export default ({ as, size, children, ...props }) => {
       as={as}
       size={size}
       display="flex"
-      justifyContent="flex-start"
+      justifyContent={isCenter ? "center": "flex-start"}
       alignItems="center"
-      margin="1.5rem 0"
+      margin={margin}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
       {...props}

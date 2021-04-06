@@ -16,14 +16,14 @@ const { UnorderedList, OrderedList, ListItem } = MDList
 const { Thead, Tbody, Tr, Th, Td } = MDTable
 
 const components = {
-  h1: (props) => <Heading as="h1" size="2xl" {...props} />,
-  h2: (props) => <Heading as="h2" size="xl" {...props} />,
-  h3: (props) => <Heading as="h3" size="lg" {...props} />,
-  h4: (props) => <Heading as="h4" size="md" {...props} />,
-  h5: (props) => <Heading as="h5" size="sm" {...props} />,
-  h6: (props) => <Heading as="h6" size="xs" {...props} />,
+  h1: (props) => <Heading as="h1" size="2xl" margin="1.5rem" isCenter {...props} />,
+  h2: (props) => <Heading as="h2" size="xl" margin="1.25rem" {...props} />,
+  h3: (props) => <Heading as="h3" size="lg" margin="1.125rem" {...props} />,
+  h4: (props) => <Heading as="h4" size="md" margin="1rem" {...props} />,
+  h5: (props) => <Heading as="h5" size="sm" margin="0.875rem" {...props} />,
+  h6: (props) => <Heading as="h6" size="xs" margin="0.75rem" {...props} />,
 
-  p: (props) => <Text margin=".5rem" {...props} />,
+  p: (props) => <Text margin=".5rem 0" {...props} />,
 
   // TODO Task List
   ol: (props) => {
