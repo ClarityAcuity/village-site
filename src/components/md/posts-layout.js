@@ -4,7 +4,7 @@ import { ArrowBackIcon } from "@chakra-ui/icons"
 import { Flex, Text } from "@chakra-ui/react"
 import Header from "../header"
 import Footer from "../footer"
-import SEO from "../seo"
+import SEOComponent from "../seo"
 import { Provider } from "./provider"
 import Renderer from "./renderer"
 
@@ -15,7 +15,7 @@ export default function PostsLayout({ data }) {
     : null
   return (
     <>
-      <SEO
+      <SEOComponent
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
         image={image}

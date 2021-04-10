@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Heading, Link } from "@chakra-ui/react"
+import { Heading as ChakraHead, Link } from "@chakra-ui/react"
 import { css } from "@emotion/react"
 import { OctIcon } from "../../icons/oct"
 
@@ -11,13 +11,13 @@ function getId(node) {
   return id
 }
 
-export default ({ as, size, margin, children, isCenter, ...props }) => {
+const Heading = ({ as, size, margin, children, isCenter, ...props }) => {
   const [isHover, setIsHover] = useState(false)
   const visibility = isHover ? "visible" : "hidden"
   const id = getId(children)
 
   return (
-    <Heading
+    <ChakraHead
       id={id}
       css={css`
         .anchor {
@@ -33,7 +33,7 @@ export default ({ as, size, margin, children, isCenter, ...props }) => {
       as={as}
       size={size}
       display="flex"
-      justifyContent={isCenter ? "center": "flex-start"}
+      justifyContent={isCenter ? "center" : "flex-start"}
       alignItems="center"
       margin={margin}
       onMouseEnter={() => setIsHover(true)}
@@ -44,6 +44,8 @@ export default ({ as, size, margin, children, isCenter, ...props }) => {
       <Link id={`user-content-${id}`} className="anchor" href={`#${id}`}>
         <OctIcon />
       </Link>
-    </Heading>
+    </ChakraHead>
   )
 }
+
+export default Heading

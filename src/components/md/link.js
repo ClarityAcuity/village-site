@@ -1,14 +1,14 @@
 import React from "react"
-import { Link } from "@chakra-ui/react"
+import { Link as ChakraLink } from "@chakra-ui/react"
 
-export default props => {
+const Link = (props) => {
   const { href, ...rest } = props
   // comment out for now
   if (href.includes("village-site") || href[0] === "/") {
-    return <Link href={href} {...rest} />
+    return <ChakraLink href={href} {...rest} />
   }
   return (
-    <Link
+    <ChakraLink
       color="#0366d6"
       href={href}
       target="_blank"
@@ -17,3 +17,5 @@ export default props => {
     />
   )
 }
+
+export default Link

@@ -11,7 +11,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import { Box, Flex } from "@chakra-ui/react"
 import Header from "../header"
 import Footer from "../footer"
-import SEO from "../seo"
+import SEOComponent from "../seo"
 
 const Layout = ({ children }) => {
   const {
@@ -33,7 +33,7 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <SEO
+      <SEOComponent
         title={title}
         description={description}
         keywords={keywords}

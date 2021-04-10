@@ -14,7 +14,7 @@ import github from "prism-react-renderer/themes/github"
 // import vsDark from "prism-react-renderer/themes/vsDark"
 
 // TODO github for light, palenight for dark theme and use chakra component
-export default ({ children, className }) => {
+const CodeBlock = ({ children, className }) => {
   const language = className?.replace(/language-/, "")
   return (
     <Highlight
@@ -26,7 +26,12 @@ export default ({ children, className }) => {
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre
           className={className}
-          style={{ ...style, margin: "1rem 0", padding: "1rem", overflow: "auto" }}
+          style={{
+            ...style,
+            margin: "1rem 0",
+            padding: "1rem",
+            overflow: "auto",
+          }}
         >
           {tokens.map((line, i) => (
             <div key={i} {...getLineProps({ line, key: i })}>
@@ -40,3 +45,5 @@ export default ({ children, className }) => {
     </Highlight>
   )
 }
+
+export default CodeBlock

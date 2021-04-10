@@ -1,7 +1,7 @@
 import React from "react"
 import { Box } from "@chakra-ui/react"
 
-export default ({ children, ...props }) => (
+const BlockQuote = ({ children, ...props }) => (
   <Box
     as="blockquote"
     margin="1rem 0"
@@ -14,3 +14,5 @@ export default ({ children, ...props }) => (
     {children}
   </Box>
 )
+
+export default BlockQuote
