@@ -17,6 +17,6 @@ class Ray {
   }
 }
 
-export default function(A, B) {
+export default function ray(A, B) {
   return new Ray(A, B)
 }

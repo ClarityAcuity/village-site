@@ -39,6 +39,6 @@ class Sphere extends Hitable {
   }
 }
 
-export default function(center, radius, material) {
+export default function sphere(center, radius, material) {
   return new Sphere(center, radius, material)
 }

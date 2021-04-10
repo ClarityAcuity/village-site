@@ -149,6 +149,6 @@ export function refract(v, n, niOverNt) {
   }
 }
 
-export default function(x, y, z) {
+export default function vec3(x, y, z) {
   return new Vec3(x, y, z)
 }

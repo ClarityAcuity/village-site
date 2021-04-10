@@ -16,21 +16,23 @@ function Animation() {
   const [image, setImage] = useState(defaultImage)
   const [colorMap, setColorMap] = useState(defaultColorMap)
   const [iteration, setIteration] = useState(1)
-  const [isFocus, setIsFocus] = useState(false)
+  const [isFocus, setIsFocus] = useState(true)
   const _updateAnimationState = useCallback(() => {
     const {
       value: { image: nextImage, colorMap: nextColorMap },
     } = getImage({ scene, width, height, colorMap, iteration }).next()
-
     setImage(nextImage)
     setColorMap(nextColorMap)
     setIteration(iteration + 1)
   }, [scene, colorMap, iteration])
 
-  useClickOutside(clickRef, () => setIsFocus(false))
+  useClickOutside(clickRef, () => {
+    setIsFocus(false)
+    cancelAnimation()
+  })
 
   useEffect(() => {
-    return cancelAnimationFrame(rAF.current)
+    return () => cancelAnimation()
   }, [])
 
   useEffect(() => {
@@ -39,9 +41,15 @@ function Animation() {
     }
   }, [iteration, isFocus, _updateAnimationState])
 
+  function cancelAnimation() {
+    cancelAnimationFrame(rAF.current)
+  }
+
   return (
     <Box ref={clickRef} onClick={() => setIsFocus(true)}>
-      {iteration} iteration
+      {`${iteration} iteration, ${
+        isFocus ? "playing..." : "pausing, click image to resume"
+      }`}
       <Canvas image={image} width={width} height={height} />
     </Box>
   )

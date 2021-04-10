@@ -23,6 +23,6 @@ class HitableList extends Hitable {
   }
 }
 
-export default function(list, listSize) {
+export default function hitableList(list, listSize) {
   return new HitableList(list, listSize)
 }

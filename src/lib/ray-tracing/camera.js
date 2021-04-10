@@ -53,7 +53,7 @@ function randomInUnitDisk() {
   return p
 }
 
-export default function({
+export default function camara({
   lookFrom,
   lookAt,
   vUp,
