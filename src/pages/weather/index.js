@@ -19,7 +19,7 @@ function App() {
   const [location, setLocation] = useState(initLocation)
   const [days, setDays] = useState()
   const getDays = useRef(throttle(locationDays, 100))
-  const { consolidated_weather: weather } = days || {}
+  const { consolidated_weather: weather = [] } = days || {}
 
   useEffect(() => {
     if (location) {
