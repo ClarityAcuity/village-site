@@ -1,0 +1,16 @@
+.weather {
+  width: 100%;
+  max-width: 1024px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.weather .date-weather {
+  min-width: 30%;
+  padding: 16px;
+}
+
+.weather-icon {
+  width: 100%;
+}
