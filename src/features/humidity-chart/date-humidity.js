@@ -1,32 +1,33 @@
-import React, { useMemo } from "react";
-import PropTypes from "prop-types";
-import * as d3 from "d3";
-import { WeatherPropType } from "../../lib/weather";
+import React, { useMemo } from "react"
+import PropTypes from "prop-types"
+import * as d3 from "d3"
+import { Box } from "@chakra-ui/react"
+import { WeatherPropType } from "../../lib/weather"
 
-const height = 400;
-const width = 400;
-const radius = 160;
+const height = 400
+const width = 400
+const radius = 160
 
 function DateHumidity({ data, color }) {
-  const format = "%";
-  const field = "humidity";
-  const fontSize = 36;
-  const labelHeight = 36;
-  const arc = d3.arc().innerRadius(0).outerRadius(radius);
+  const format = "%"
+  const field = "humidity"
+  const fontSize = 36
+  const labelHeight = 36
+  const arc = d3.arc().innerRadius(0).outerRadius(radius)
   const { pieData } = useMemo(() => {
     if (data) {
-      const pie = d3.pie().value((d) => d[field]);
+      const pie = d3.pie().value((d) => d[field])
 
       return {
         pieData: pie([data, { ...data, humidity: 100 - data.humidity }]),
-      };
+      }
     }
-    return {};
-  }, [data]);
+    return {}
+  }, [data])
 
   function _renderArcs() {
     return pieData?.map((arcData) => {
-      const { index, startAngle, endAngle } = arcData;
+      const { index, startAngle, endAngle } = arcData
       return (
         <g key={index}>
           <path
@@ -36,12 +37,12 @@ function DateHumidity({ data, color }) {
             d={arc.startAngle(startAngle).endAngle(endAngle)()}
           />
         </g>
-      );
-    });
+      )
+    })
   }
 
   return (
-    <svg className="date-humidity-chart" viewBox={`0 0 ${width} ${height}`}>
+    <Box as="svg" maxWidth="33%" viewBox={`0 0 ${width} ${height}`}>
       <text
         x={width / 2}
         y={labelHeight}
@@ -61,13 +62,13 @@ function DateHumidity({ data, color }) {
         fontSize={fontSize}
         fill="currentColor"
       >{`${data?.humidity} ${format}`}</text>
-    </svg>
-  );
+    </Box>
+  )
 }
 
 DateHumidity.propTypes = {
   data: WeatherPropType,
   color: PropTypes.string,
-};
+}
 
-export default DateHumidity;
+export default DateHumidity

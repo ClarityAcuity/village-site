@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react"
 import { throttle } from "lodash"
+import { Link, Box, Flex } from "@chakra-ui/react"
 import LocationInput from "../location-input"
 import Weather from "../weather"
 import TemperatureChart from "../temperature-chart"
 import HumidityChart from "../humidity-chart"
-import { locationDays, searchLocations } from "../../api"
-import "./style.css"
+import { locationDays } from "../../api"
 
 const initLocation = {
   latt_long: "25.085960,121.561478",
@@ -27,8 +27,24 @@ function App() {
   }, [location])
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <Box textAlign="center">
+      <Flex
+        backgroundColor="#282c34"
+        minHeight="100vh"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        fontSize="calc(10px + 2vmin)"
+        color="white"
+      >
+        <Link
+          href="https://cors-anywhere.herokuapp.com/corsdemo"
+          target="_blank"
+          rel="noopener noreferrer"
+          fontSize="36px"
+        >
+          Activate cors proxy there
+        </Link>
         <LocationInput
           name="Location"
           location={location.title}
@@ -48,8 +64,8 @@ function App() {
             <HumidityChart data={weather} />
           </>
         )}
-      </header>
-    </div>
+      </Flex>
+    </Box>
   )
 }
 

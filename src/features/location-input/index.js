@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react"
 import PropTypes from "prop-types"
 import { throttle } from "lodash"
+import { Box, Text, Input } from "@chakra-ui/react"
 import { searchLocations } from "../../api"
-import "./style.css"
 
 function LocationInput({ id, name, location, onChange }) {
   const [value, setValue] = useState(location)
@@ -29,22 +29,24 @@ function LocationInput({ id, name, location, onChange }) {
   }
 
   return (
-    <div className="location-input">
-      <label>
+    <Box height="240px" margin="24px" width="100%" maxWidth="1024px">
+      <Text as="label">
         {name}: <em>{location}</em>
-        <div>
-          <input
-            className="search-input"
+        <Box>
+          <Input
+            width="50%"
             type="search"
             id={id}
             name={name}
             onChange={_handleChange}
             value={value}
           />
-          <div className="list">{_renderLocations(locations)}</div>
-        </div>
-      </label>
-    </div>
+          <Box width=" 100%" maxHeight="150px" overflowY="auto">
+            {_renderLocations(locations)}
+          </Box>
+        </Box>
+      </Text>
+    </Box>
   )
 }
 

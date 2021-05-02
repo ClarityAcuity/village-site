@@ -1,44 +1,49 @@
-import React, { useMemo } from "react";
-import PropTypes from "prop-types";
-import * as d3 from "d3";
-import { WeatherPropType, color, intFormat, floatFormat } from "../../lib/weather";
-import "./style.css";
+import React, { useMemo } from "react"
+import PropTypes from "prop-types"
+import * as d3 from "d3"
+import { Box, Text } from "@chakra-ui/react"
+import {
+  WeatherPropType,
+  color,
+  intFormat,
+  floatFormat,
+} from "../../lib/weather"
 
-const height = 500;
-const width = 500;
-const margin = { top: 30, right: 10, bottom: 30, left: 50 };
+const height = 500
+const width = 500
+const margin = { top: 30, right: 10, bottom: 30, left: 50 }
 
 const ChartTypeEnums = {
   MAX_TEMP: "max_temp",
   MIN_TEMP: "min_temp",
-};
-const { MAX_TEMP, MIN_TEMP } = ChartTypeEnums;
+}
+const { MAX_TEMP, MIN_TEMP } = ChartTypeEnums
 const ChartNameMap = {
   [MAX_TEMP]: "Max Temperature",
   [MIN_TEMP]: "Min Temperature",
-};
+}
 
 function TemperatureChart({ data, field }) {
-  const format = "°C";
+  const format = "°C"
   const { xScale, yScale } = useMemo(() => {
     if (data) {
       const x = d3
         .scaleBand()
         .domain(d3.range(data.length))
         .range([margin.left, width - margin.right])
-        .padding(0.1);
-      const maxTemp = d3.max(data, (d) => d[field]);
-      const minTemp = d3.min(data, (d) => d[field]);
+        .padding(0.1)
+      const maxTemp = d3.max(data, (d) => d[field])
+      const minTemp = d3.min(data, (d) => d[field])
       const y = d3
         .scaleLinear()
         .domain([minTemp, maxTemp])
         .nice()
-        .range([height - margin.bottom, margin.top]);
+        .range([height - margin.bottom, margin.top])
 
-      return { xScale: x, yScale: y };
+      return { xScale: x, yScale: y }
     }
-    return {};
-  }, [data, field]);
+    return {}
+  }, [data, field])
 
   function _renderXAxis() {
     if (xScale) {
@@ -54,28 +59,28 @@ function TemperatureChart({ data, field }) {
               {applicable_date}
             </text>
           </g>
-        );
-      });
+        )
+      })
     }
   }
 
   function _renderYAxis() {
     if (yScale) {
-      const maxTemp = d3.max(data, (d) => d[field]);
-      const minTemp = d3.min(data, (d) => d[field]);
-      const diffTemp = maxTemp - minTemp;
-      const increment = diffTemp > 2 ? 1 : Number(floatFormat(diffTemp / 3));
-      const start = Number(intFormat(minTemp)) - increment;
-      let ticks = [];
+      const maxTemp = d3.max(data, (d) => d[field])
+      const minTemp = d3.min(data, (d) => d[field])
+      const diffTemp = maxTemp - minTemp
+      const increment = diffTemp > 2 ? 1 : Number(floatFormat(diffTemp / 3))
+      const start = Number(intFormat(minTemp)) - increment
+      let ticks = []
       for (let i = start; yScale(i) > 0; i += increment) {
         if (i >= 0) {
-          ticks.push(parseFloat(floatFormat(i)));
+          ticks.push(parseFloat(floatFormat(i)))
         } else {
-          ticks.push(-parseFloat(floatFormat(-i)));
+          ticks.push(-parseFloat(floatFormat(-i)))
         }
       }
       return ticks.map((tick, index) => {
-        const y = yScale(tick);
+        const y = yScale(tick)
 
         return (
           y <= height && (
@@ -87,15 +92,15 @@ function TemperatureChart({ data, field }) {
               </text>
             </g>
           )
-        );
-      });
+        )
+      })
     }
   }
 
   function _renderBars() {
     if (xScale && yScale) {
       return data.map((bar, index) => {
-        const y = yScale(bar[field]);
+        const y = yScale(bar[field])
 
         return (
           <rect
@@ -106,14 +111,16 @@ function TemperatureChart({ data, field }) {
             width={xScale.bandwidth()}
             fill={color[index]}
           />
-        );
-      });
+        )
+      })
     }
   }
 
   return (
-    <div className="temperature-chart">
-      <p>{ChartNameMap[field]}</p>
+    <Box width="100%" maxWidth="1024px" margin="24px 0px">
+      <Text margin="24px 0 0 0" fontSize="36px">
+        {ChartNameMap[field]}
+      </Text>
       <svg viewBox={`0 0 ${width} ${height}`}>
         <g>{_renderBars()}</g>
         <g
@@ -136,19 +143,19 @@ function TemperatureChart({ data, field }) {
           {_renderYAxis()}
         </g>
       </svg>
-    </div>
-  );
+    </Box>
+  )
 }
 
 TemperatureChart.propTypes = {
   data: PropTypes.arrayOf(WeatherPropType),
   field: PropTypes.string,
-};
+}
 
 TemperatureChart.defaultProps = {
   field: "max_temp",
-};
+}
 
-TemperatureChart.ChartTypeEnums = ChartTypeEnums;
+TemperatureChart.ChartTypeEnums = ChartTypeEnums
 
-export default TemperatureChart;
+export default TemperatureChart

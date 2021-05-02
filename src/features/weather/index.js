@@ -1,33 +1,33 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Box, Flex, Text, Img } from "@chakra-ui/react"
 import { WeatherPropType, floatFormat } from "../../lib/weather";
-import "./style.css";
 
 const WeatherSvgBaseURL = "https://www.metaweather.com/static/img/weather/";
 
 function Weather({ data }) {
   return (
-    <div>
-      <p>Weather</p>
-      <div className="weather">
+    <Box margin="24px 0px">
+      <Text margin="24px" fontSize="36px">Weather</Text>
+      <Flex flexWrap="wrap" justifyContent="center">
         {data?.map(
           ({ applicable_date, weather_state_abbr, weather_state_name, min_temp, max_temp }) => {
             return (
-              <div key={applicable_date} className="date-weather">
-                <p>{applicable_date}</p>
-                <p>{`${floatFormat(min_temp)} ~ ${floatFormat(max_temp)} °C`}</p>
-                <p>{weather_state_name}</p>
-                <img
+              <Box key={applicable_date} minWidth="30%" padding="16px">
+                <Text>{applicable_date}</Text>
+                <Text>{`${floatFormat(min_temp)} ~ ${floatFormat(max_temp)} °C`}</Text>
+                <Text>{weather_state_name}</Text>
+                <Img
                   className="weather-icon"
                   src={`${WeatherSvgBaseURL}${weather_state_abbr}.svg`}
                   alt={weather_state_name}
                 />
-              </div>
+              </Box>
             );
           }
         )}
-      </div>
-    </div>
+      </Flex>
+    </Box>
   );
 }
 
