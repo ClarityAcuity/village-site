@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import DateHumidity from "./date-humidity";
-import { WeatherPropType, color } from "../utils";
+import { WeatherPropType, color } from "../../lib/weather";
 import "./style.css";
 
 function HumidityChart({ data }) {
@@ -9,7 +9,7 @@ function HumidityChart({ data }) {
     <div className="humidity-chart">
       <p>Humidity</p>
       <div className="date-humidity-container">
-        {data.map((dateData, index) => {
+        {data?.map((dateData, index) => {
           return (
             <DateHumidity
               key={dateData.applicable_date}

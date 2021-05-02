@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { WeatherPropType, floatFormat } from "../utils";
+import { WeatherPropType, floatFormat } from "../../lib/weather";
 import "./style.css";
 
 const WeatherSvgBaseURL = "https://www.metaweather.com/static/img/weather/";
@@ -10,7 +10,7 @@ function Weather({ data }) {
     <div>
       <p>Weather</p>
       <div className="weather">
-        {data.map(
+        {data?.map(
           ({ applicable_date, weather_state_abbr, weather_state_name, min_temp, max_temp }) => {
             return (
               <div key={applicable_date} className="date-weather">

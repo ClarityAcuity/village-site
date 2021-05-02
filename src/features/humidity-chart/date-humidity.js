@@ -1,8 +1,7 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import * as d3 from "d3";
-import { WeatherPropType } from "../utils";
-import "./style.css";
+import { WeatherPropType } from "../../lib/weather";
 
 const height = 400;
 const width = 400;
@@ -26,7 +25,7 @@ function DateHumidity({ data, color }) {
   }, [data]);
 
   function _renderArcs() {
-    return pieData.map((arcData) => {
+    return pieData?.map((arcData) => {
       const { index, startAngle, endAngle } = arcData;
       return (
         <g key={index}>
@@ -50,7 +49,7 @@ function DateHumidity({ data, color }) {
         fontSize={fontSize}
         fill="currentColor"
       >
-        {data.applicable_date}
+        {data?.applicable_date}
       </text>
       <g transform={`translate(${width / 2},${(height + labelHeight) / 2})`}>
         {_renderArcs()}
@@ -61,7 +60,7 @@ function DateHumidity({ data, color }) {
         textAnchor="middle"
         fontSize={fontSize}
         fill="currentColor"
-      >{`${data.humidity} ${format}`}</text>
+      >{`${data?.humidity} ${format}`}</text>
     </svg>
   );
 }

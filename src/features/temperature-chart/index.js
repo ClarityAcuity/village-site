@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import * as d3 from "d3";
-import { WeatherPropType, color, intFormat, floatFormat } from "../utils";
+import { WeatherPropType, color, intFormat, floatFormat } from "../../lib/weather";
 import "./style.css";
 
 const height = 500;
