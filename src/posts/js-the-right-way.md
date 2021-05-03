@@ -6,6 +6,60 @@ author: Villager Liao
 
 # [JavaScript The Right Way](https://jstherightway.org/)
 
+## Must See
+
+[Arindam Paul - JavaScript VM internals, EventLoop, Async and ScopeChains](https://www.youtube.com/watch?v=QyUFheng6J0)
+
+```js
+a = 1;
+var b = 2;
+
+function f(z) {
+  b = 3;
+  c = 4;
+  var d = 5;
+  e = 6;
+
+  function g() {
+    var e = 0;
+    d = 2 * d;
+    return d;
+  }
+  
+  return g; // no call operator
+  var e;
+}
+
+myG = f(1); // return a function "g"
+myG(); // return 10;
+```
+
+Global Scope (Window)
+| key | value         | gc |
+| --- | ------------- | -- |
+| b   | ~~2~~ 3       | o  |
+| f   | -> lambda "f" | o  |
+| a   | 1             | o  |
+| c   | 4             | o  |
+| myG | -> lambda "g" | o  |
+
+Local scope for execution of f (`[[scope]]` copy window)
+| key          | value           | gc |
+| ------------ | --------------- | -- |
+| z            | 1               | o  |
+| this         | *               | o  |
+| <- arguments | -> pseudoArr[1] | o  |
+| d            | ~~5~~ 10        | o  |
+| e            | 6               | o  |
+| g            | -> lambda "g"   | o  |
+
+Local scope for execution of g (`[[scope]]` copy f)
+| key          | value     | gc |
+| ------------ | --------- | -- |
+| this         | *         | x  |
+| <- arguments | pseudoArr | x  |
+| e            | 0         | x  |
+
 ## GOOD PARTS
 
 ### OBJECT ORIENTED
@@ -223,6 +277,32 @@ boundFunc(); // 3
 
 Closures are functions that refer to independent (free) variables. In other words, the function defined in the closure 'remembers' the environment in which it was created in. It is an important concept to understand as it can be useful during development, like emulating private methods. It can also help to learn how to avoid common mistakes, like creating closures in loops.
 [MDN - Closures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)
+
+- Closure is an implicit, permanent link between a function and it's scope chain
+- Anytime you execute a funtion, it runs with a scope chain based on where it was defined (not where it is run)
+- The function's hidden `[[scope]]` refernece
+  - holds the scope chain (preventing garbage collection)
+  - is copied as the new scope's "outer environment reference", anytime the function is run, recreating the original chain
+
+```js
+// implicit closure
+var data = "My Data!"
+setTimeout(function() {
+  console.log(data);
+}, 3000)
+
+// explicit closure
+function makeAdder(n) {
+  var inc = n;
+  var sum = 0;
+  return function add() {
+    sum = sum + inc;
+    return sum;
+  };
+}
+
+var adder3 = makeAdder(3)
+```
 
 ## STRICT MODE
 
@@ -891,3 +971,9 @@ Behavioral patterns focus on improving or streamlining the communication between
 ## BOOKS
 
 ### [JS BOOKS](https://jsbooks.revolunet.com/)
+
+## Reference
+
+### [MDN](https://developer.mozilla.org/en-US/docs/Web/Tutorials)
+
+### [JavaScript Patterns](https://shichuan.github.io/javascript-patterns/)
