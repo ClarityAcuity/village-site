@@ -1,0 +1,2 @@
+(self.webpackChunkvillage=self.webpackChunkvillage||[]).push([[747],{107:function(e,t,n){"use strict";n.r(t);var r=n(7294);function u(e){var t=e.width,n=e.height,u=e.contextRef;return r.createElement("canvas",{width:t,height:n,ref:function(e){return u(e)}})}function i(){return!1}t.default=(0,r.memo)(u,i)}}]);
+//# sourceMappingURL=component---src-pages-geo-pure-canvas-js-2c8649b8c1cb77193623.js.map

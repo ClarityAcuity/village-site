@@ -1,0 +1,2 @@
+(self.webpackChunkvillage=self.webpackChunkvillage||[]).push([[131],{1526:function(e,t,n){"use strict";n.r(t);var u=n(7294);function r(e){var t=e.width,n=e.height,r=e.contextRef;return u.createElement("canvas",{width:t,height:n,ref:function(e){return e?r(e.getContext("webgl")):null}})}function i(){return!1}t.default=(0,u.memo)(r,i)}}]);
+//# sourceMappingURL=component---src-pages-ray-tracing-pure-canvas-js-b6a83c157bb9684f0d0a.js.map
