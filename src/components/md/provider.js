@@ -1,4 +1,5 @@
 import React from "react"
+import { graphql } from "gatsby"
 import { MDXProvider } from "@mdx-js/react"
 import { Box, Text, Link, Code, Divider, Img } from "@chakra-ui/react"
 import Heading from "./heading"
@@ -7,6 +8,7 @@ import CodeBlock from "./code-block"
 import BlockQuote from "./block-quote"
 import MDList from "./list"
 import MDTable from "./table"
+// import Image from "./image"
 import { ColorSchemeEnums } from "../../lib/style-utils"
 
 const { GRAY } = ColorSchemeEnums
@@ -16,7 +18,9 @@ const { UnorderedList, OrderedList, ListItem } = MDList
 const { Thead, Tbody, Tr, Th, Td } = MDTable
 
 const components = {
-  h1: (props) => <Heading as="h1" size="2xl" margin="1.5rem" isCenter {...props} />,
+  h1: (props) => (
+    <Heading as="h1" size="2xl" margin="1.5rem" isCenter {...props} />
+  ),
   h2: (props) => <Heading as="h2" size="xl" margin="1.25rem" {...props} />,
   h3: (props) => <Heading as="h3" size="lg" margin="1.125rem" {...props} />,
   h4: (props) => <Heading as="h4" size="md" margin="1rem" {...props} />,
@@ -34,7 +38,26 @@ const components = {
 
   a: (props) => <MDLink {...props} />,
 
-  img: (props) => <Img {...props} />,
+  img: ({ src, ...props }) => {
+    // const {
+    //   placeholderImage: { childImageSharp: { gatsbyImageData } = {} } = {},
+    // } = graphql`
+    //   query($src: String!) {
+    //     placeholderImage: file(relativePath: { eq: $src }) {
+    //       childImageSharp {
+    //         gatsbyImageData(
+    //           layout: CONSTRAINED
+    //           placeholder: BLURRED
+    //           formats: [AUTO, WEBP, AVIF]
+    //         )
+    //       }
+    //     }
+    //   }
+    // `
+
+    // console.log(process.env.GATSBY_SITE_URL, gatsbyImageData, props)
+    return <Img src={src} {...props} />
+  },
 
   pre: (preProps) => {
     const props = preToCodeBlock(preProps)
