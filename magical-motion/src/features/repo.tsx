@@ -1,10 +1,11 @@
 import { useState, useEffect, useCallback } from "react"
 import { Box, Badge, Link } from "@chakra-ui/react"
-import { ExternalLinkIcon } from "@chakra-ui/icons"
+// import { ExternalLinkIcon } from "@chakra-ui/icons"
 import { request } from "@octokit/request"
 import { SizeEnums, ColorEnums } from "../lib/style-utils"
 import { siteMetadata } from "../data/siteMetadata"
 import type { OctokitResponse } from "@octokit/types"
+import { Provider } from "../components/ui/provider"
 
 type RepoData = {
   name: string
@@ -57,7 +58,7 @@ const RepoPage = () => {
   }, [_getProjectRequest])
 
   return (
-    <>
+    <Provider>
       <Box>
         {repoData?.map(
           (
@@ -81,7 +82,7 @@ const RepoPage = () => {
                 <Box as="h1" fontWeight="semibold" fontSize={EXTRALARGE}>
                   <Link href={html_url} isExternal>
                     {name}
-                    <ExternalLinkIcon mx="2px" />
+                    {/* <ExternalLinkIcon mx="2px" /> */}
                   </Link>
                 </Box>
                 <Box
@@ -122,7 +123,7 @@ const RepoPage = () => {
           )
         )}
       </Box>
-    </>
+    </Provider>
   )
 }
 

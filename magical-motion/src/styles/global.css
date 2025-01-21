@@ -5,7 +5,7 @@
  */
 
 :root {
-  --accent: #2337ff;
+  --accent: #2337ff; /* not used */
   --accent-dark: #000d8a;
   --black: 15, 18, 25;
   --gray: 96, 115, 159;
@@ -34,8 +34,7 @@ body {
   margin: 0;
   padding: 0;
   text-align: left;
-  background: linear-gradient(var(--gray-gradient)) no-repeat;
-  background-size: 100% 600px;
+  background: rgb(var(--gray-light));
   word-wrap: break-word;
   overflow-wrap: break-word;
   color: rgb(var(--gray-dark));
@@ -78,10 +77,10 @@ b {
   font-weight: 700;
 }
 a {
-  color: var(--accent);
+  /* color: var(--accent); */
 }
 a:hover {
-  color: var(--accent);
+  /* color: var(--accent); */
 }
 p {
   margin-bottom: 1em;
@@ -132,6 +131,7 @@ hr {
   }
   main {
     /* padding: 1em; */
+    overflow-y: scroll;
   }
 }
 

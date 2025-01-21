@@ -1,11 +1,10 @@
 {
   "extends": "astro/tsconfigs/strict",
+  "include": ["src", "styled-system"],
   "compilerOptions": {
     "strictNullChecks": true,
     "jsx": "react-jsx",
     "jsxImportSource": "react",
-    "types": [
-      "vite-plugin-glsl/ext"
-    ]
+    "types": ["vite-plugin-glsl/ext"]
   }
 }

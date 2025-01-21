@@ -1,7 +1,14 @@
-import { Box, Badge, Link } from "@chakra-ui/react"
-import { TimeIcon, ViewIcon } from "@chakra-ui/icons"
+import {
+  Box,
+  Badge,
+  Link,
+  defaultSystem,
+  ChakraProvider,
+} from "@chakra-ui/react"
+// import { TimeIcon, ViewIcon } from "@chakra-ui/icons"
 import { SizeEnums, ColorEnums, ColorSchemeEnums } from "../lib/style-utils"
 import type { CollectionEntry } from "astro:content"
+import { Provider } from "../components/ui/provider"
 
 const { SMALL, LARGE, EXTRALARGE, XXL } = SizeEnums
 const { GRAY } = ColorEnums
@@ -15,7 +22,7 @@ export type Props = {
 
 function IndexPageQuery({ posts }: Props) {
   return (
-    <>
+    <Provider>
       {posts.map(
         ({ id, slug, timeToRead, excerpt, data: { title, date, author } }) => {
           return (
@@ -30,7 +37,7 @@ function IndexPageQuery({ posts }: Props) {
               <Box padding="4">
                 <Box display="flex" alignItems="baseline">
                   <Badge borderRadius="full" colorScheme={TEAL}>
-                    {author}
+                    {author || "No Author"}
                   </Badge>
                 </Box>
                 <Box as="h4" fontWeight="semibold" fontSize={EXTRALARGE}>
@@ -48,7 +55,7 @@ function IndexPageQuery({ posts }: Props) {
                   position="relative"
                 >
                   <Box as="span" color={GRAY} fontSize={SMALL}>
-                    <ViewIcon margin="2" />
+                    {/* <ViewIcon margin="2" /> */}
                     {timeToRead} min read
                   </Box>
                   <Box
@@ -58,7 +65,7 @@ function IndexPageQuery({ posts }: Props) {
                     position="absolute"
                     right="0"
                   >
-                    <TimeIcon margin="2" />
+                    {/* <TimeIcon margin="2" /> */}
                     {date.toLocaleString("en-US", {
                       year: "numeric",
                       month: "long",
@@ -71,7 +78,7 @@ function IndexPageQuery({ posts }: Props) {
           )
         }
       )}
-    </>
+    </Provider>
   )
 }
 

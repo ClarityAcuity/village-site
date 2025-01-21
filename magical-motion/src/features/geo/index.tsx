@@ -7,14 +7,14 @@ import { outline, graticule, land110 } from "../../lib/geo/utils"
 import type { GeoPermissibleObjects } from "d3-geo"
 
 type State = {
-    lambda: number
-    phi: number
-    gamma: number
-    rotate: number[]
-    scale: number
-    tilt: number
-    distance: number
-  }
+  lambda: number
+  phi: number
+  gamma: number
+  rotate: number[]
+  scale: number
+  tilt: number
+  distance: number
+}
 
 interface GeoPage {
   width: number
@@ -78,7 +78,6 @@ class GeoPage extends Component {
   componentWillUnmount() {
     cancelAnimationFrame(this.rAF)
   }
-
 
   render() {
     const { lambda, phi, gamma, rotate, distance, tilt, scale } = this.state
