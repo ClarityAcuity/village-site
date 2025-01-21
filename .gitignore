@@ -70,3 +70,5 @@ yarn-error.log
 
 # VS code config
 .vscode
+
+.backup
